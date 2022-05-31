@@ -46,7 +46,7 @@
         outline: none;
     / / убираем обводку при нажатии
     }
-
+    button{ border: none; outline: none; background:none;}
 </style>
 
 <div class="wrapper">
@@ -73,7 +73,6 @@
                     <div class="col-sm-6 ml-2">
                         <h1 class="m-0">@yield('title')</h1>
                     </div><!-- /.col -->
-
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
@@ -138,6 +137,16 @@
 {{--<script src="{{asset('dist/js/demo.js')}}"></script>--}}
 {{--<!-- AdminLTE dashboard demo (This is only for demo purposes) -->--}}
 <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.phone').inputmask('(099)-999-9999')
+    });
+    $(document).ready(function(){
+        $('.number_card').inputmask('9999-9999-9999-9999')
+    });
+</script>
 
 @yield('script')
 

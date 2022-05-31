@@ -21,13 +21,15 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->unsignedInteger('role')->default(0);
-            $table->unsignedBigInteger('phone');
+            $table->string('phone');
             $table->string('pseudonym')->nullable();
             $table->string('address')->nullable();
             $table->string('gender')->nullable();
             $table->date('date_of_birth')->nullable();
+            $table->string('number_card')->nullable();
 
-            $table->foreignId('city_id')->constrained('cities')->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreignId('city_id')->nullable()->constrained('cities')->onDelete('cascade')->onUpdate('cascade');
 
             $table->rememberToken();
             $table->timestamps();

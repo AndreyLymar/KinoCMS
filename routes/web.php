@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => 'admin'], function(){
     Route::group(['namespace'=>'Statistic'], function(){
@@ -24,6 +24,9 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => 'admin'],
     });
     Route::group(['namespace'=>'User'], function(){
         Route::get('/users', 'UsersController@index')->name('admin.users.index');
+        Route::get('/users/{user}', 'UsersController@show')->name('admin.users.show');
+        Route::patch('/users/{user}', 'UsersController@update')->name('admin.users.update');
+        Route::delete('/users/{user}', 'UsersController@destroy')->name('admin.users.destroy');
     });
     Route::group(['namespace'=>'SpecialOffer'], function(){
         Route::get('/special_offers', 'SpecialOfferController@index')->name('admin.special_offers.index');

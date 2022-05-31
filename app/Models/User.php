@@ -21,8 +21,17 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'surname',
         'email',
         'password',
+        'phone',
+        'role',
+        'pseudonym',
+        'address',
+        'gender',
+        'date_of_birth',
+        'city_id',
+        'number_card',
     ];
 
     /**
@@ -43,4 +52,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function city(){
+        return $this->belongsTo(City::class);
+    }
 }

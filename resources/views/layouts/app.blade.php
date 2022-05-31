@@ -79,5 +79,12 @@
             @yield('content')
         </main>
     </div>
+    <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.phone').inputmask('(099)-999-9999')
+        });
+    </script>
 </body>
 </html>
