@@ -15,8 +15,8 @@ class CreateHomePagesTable extends Migration
     {
         Schema::create('home_pages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('phone1');
-            $table->unsignedBigInteger('phone2');
+            $table->string('phone1');
+            $table->string('phone2');
 
             $table->string('seo_url')->nullable();
             $table->text('seo_text')->nullable();

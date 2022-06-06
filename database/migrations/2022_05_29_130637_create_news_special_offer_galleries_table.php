@@ -19,9 +19,6 @@ class CreateNewsSpecialOfferGalleriesTable extends Migration
             $table->string('img');
             $table->string('url');
 
-            $table->foreignId('home_page_id')->constrained('home_pages')->onUpdate('cascade')->onDelete('cascade');
-
-
             $table->timestamps();
         });
     }

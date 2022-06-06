@@ -18,8 +18,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                @foreach($users as $user)
+            @foreach($users as $user)
+                <tr>
                     <th scope="row">{{$user->id}}</th>
                     <td>{{$user->created_at}}</td>
                     <td>{{$user->date_of_birth}}</td>
@@ -33,21 +33,25 @@
                     <td>
                         <div class="row">
                             <div class="col-4">
-                                <a href="{{route('admin.users.show',$user->id)}}" class=""><img src="https://img.icons8.com/ios/30/000000/edit--v1.png"/></a>
+                                <a href="{{route('admin.users.show',$user->id)}}" class=""><img
+                                        src="https://img.icons8.com/ios/30/000000/edit--v1.png"/></a>
                             </div>
                             <div class="col-4">
                                 <form action="{{route('admin.users.destroy',$user->id)}}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit"><img src="https://img.icons8.com/ios/30/000000/delete--v1.png"/></button>
+                                    <button type="submit"><img
+                                            src="https://img.icons8.com/ios/30/000000/delete--v1.png"/></button>
                                 </form>
                             </div>
                         </div>
                     </td>
-                @endforeach
-            </tr>
+                </tr>
+            @endforeach
+
             </tbody>
         </table>
+        {{$users->links()}}
     </div>
 
 @endsection

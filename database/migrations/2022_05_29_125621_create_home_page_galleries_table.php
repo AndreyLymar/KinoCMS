@@ -19,8 +19,6 @@ class CreateHomePageGalleriesTable extends Migration
             $table->string('url');
             $table->text('text');
 
-            $table->foreignId('home_page_id')->constrained('home_pages')->onUpdate('cascade')->onDelete('cascade');
-
             $table->timestamps();
         });
     }

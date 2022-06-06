@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin\BannerGallery;
+namespace App\Http\Controllers\Admin\BannerGallery\TopBanner;
 
 use App\Http\Controllers\Controller;
-use App\Service\Admin\BannerGallery\Service;
+use App\Service\Admin\BannerGallery\TopBanner\Service;
 
 class BaseController extends Controller
 {

@@ -6,6 +6,7 @@
         @csrf
         @method('patch')
         <div class="row mt-5 ml-3">
+            <input type="hidden" name="user_id" value="{{$user->id}}">
             <div class="col-md-4">
                 <div class="row">
                     <label for="name" class="form-label">Имя:</label>

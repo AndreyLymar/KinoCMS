@@ -19,7 +19,7 @@ class AdminPanelMiddleware
         if(auth()->user() !== null && auth()->user()->role === 1){
             return $next($request);
         }else{
-            return redirect()->route('home');
+            return redirect()->route('user.main.index');
         }
     }
 }

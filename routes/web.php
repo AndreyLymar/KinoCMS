@@ -16,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['namespace'=>'User'], function(){
+    Route::group(['namespace'=>'Main'], function(){
+        Route::get('/', 'MainController@redirect');
+        Route::get('/main', 'MainController@index')->name('user.main.index');
+    });
+});
 
 Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => 'admin'], function(){
     Route::group(['namespace'=>'Statistic'], function(){
@@ -33,12 +38,28 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => 'admin'],
     });
     Route::group(['namespace'=>'BannerGallery'], function(){
         Route::get('/galleries', 'BannerGalleryController@index')->name('admin.galleries.index');
+        Route::group(['namespace'=>'TopBanner'],function (){
+            Route::post('/galleries/banners/top_banner', 'TopBannerController@store')->name('admin.galleries.top_banner.store');
+        });
+        Route::group(['namespace'=>'NewsSpecialOfferBanner'],function (){
+            Route::post('/galleries/banners/news_special_offer_banner', 'NewsSpecialOfferBannerController@store')->name('admin.galleries.news_special_offer_banner.store');
+        });
+        Route::group(['namespace'=>'BgImgBanner'],function (){
+            Route::patch('/galleries/banners/bg_img_banner/{home}', 'BgImgBannerController@update')->name('admin.galleries.bg_img_banner.update');
+        });
     });
     Route::group(['namespace'=>'MailingList'], function(){
         Route::get('/mailing_lists', 'MailingListController@index')->name('admin.mailing_lists.index');
     });
     Route::group(['namespace'=>'Page'], function(){
         Route::get('/pages', 'PageController@index')->name('admin.pages.index');
+        Route::get('/pages/create', 'PageController@create')->name('admin.pages.create');
+
+        Route::get('/pages/main/create', 'MainController@create')->name('admin.pages.main.create');
+        Route::post('/pages/main/', 'MainController@store')->name('admin.pages.main.store');
+        Route::get('/pages/main/edit/{home}', 'MainController@edit')->name('admin.pages.main.edit');
+        Route::patch('/pages/main/{home}', 'MainController@update')->name('admin.pages.main.update');
+        Route::delete('/pages/main/{home}', 'MainController@destroy')->name('admin.pages.main.destroy');
     });
     Route::group(['namespace'=>'News'], function(){
         Route::get('/news', 'NewsController@index')->name('admin.news.index');
