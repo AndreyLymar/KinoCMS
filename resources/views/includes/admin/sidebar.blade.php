@@ -58,6 +58,12 @@
                     <p>Рассылки</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{route('admin.cities.index')}}" class="nav-link w-100 {{strpos($_SERVER['REQUEST_URI'], 'cities') !== false ? 'active' : ''}}">
+                    <img class="pr-4" src="https://img.icons8.com/ios/30/ffffff/downtown.png"/>
+                    <p>Города</p>
+                </a>
+            </li>
 
         </ul>
     </nav>

@@ -138,7 +138,7 @@
                     <label for="date_of_birth" class="form-label">Дата рождения:</label>
                     <input type="date" class="form-control @error('date_of_birth') is-invalid @enderror"
                            id="date_of_birth" name="date_of_birth"
-                           value="{{old('date_of_birth') ?? $user->date_of_birth }}">
+                           value="{{old('date_of_birth') ?? ($user->date_of_birth !== null ? date("Y-m-d", strtotime($user->date_of_birth)) : '')}}">
                     @error('date_of_birth')
                     <span class="invalid-feedback" role="alert">
                         {{ $message }}
@@ -152,7 +152,8 @@
                         @if(!empty($cities))
                             @foreach($cities as $city)
                                 <option
-                                    value="{{$city->id}}" {{$city->id == $user->city_id ? 'selected' : ''}}>{{$city->title}}</option>
+                                    value="{{$city->id}}" {{$city->id == $user->city_id ? 'selected' : ''}}>{{$city->title}}
+                                </option>
                             @endforeach
                         @endif
                     </select>

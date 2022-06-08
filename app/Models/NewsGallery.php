@@ -10,4 +10,7 @@ class NewsGallery extends Model
     use HasFactory;
     protected $table = 'news_galleries';
     protected $guarded = false;
+    public function news(){
+        return $this->belongsTo(News::class);
+    }
 }

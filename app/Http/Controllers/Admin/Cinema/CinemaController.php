@@ -2,9 +2,33 @@
 
 namespace App\Http\Controllers\Admin\Cinema;
 
+use App\Http\Requests\Admin\Cinema\createOrUpdateRequest;
+use App\Models\Cinema;
+use App\Models\Hall;
+
 class CinemaController extends BaseController
 {
     public function index(){
-        return view('admin.cinema.index');
+        $cinemas = Cinema::all();
+        return view('admin.cinema.index', compact('cinemas',));
+    }
+    public function create(){
+        return view('admin.cinema.create');
+    }
+
+    public function edit(Cinema $cinema){
+        return view('admin.cinema.edit',compact('cinema'));
+    }
+
+    public function updateOrCreate(createOrUpdateRequest $request){
+        $data = $request->validated();
+        $this->service->updateOrCreate($data);
+        return redirect()->route('admin.cinemas.index');
+    }
+
+    public function destroy(Cinema $cinema){
+        $cinema->delete();
+        return redirect()->route('admin.cinemas.index');
+
     }
 }

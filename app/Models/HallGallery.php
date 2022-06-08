@@ -10,4 +10,8 @@ class HallGallery extends Model
     use HasFactory;
     protected $table = 'hall_galleries';
     protected $guarded = false;
+
+    public function hall(){
+        return $this->belongsTo(Hall::class);
+    }
 }

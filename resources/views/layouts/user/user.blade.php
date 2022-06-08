@@ -75,9 +75,10 @@
 
 @yield('content')
 
-
-@yield('script')
 <script src="{{asset('assets/dist/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+@yield('script')
+
 
 </body>
 </html>

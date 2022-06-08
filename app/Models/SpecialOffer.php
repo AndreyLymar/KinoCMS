@@ -10,4 +10,9 @@ class SpecialOffer extends Model
     use HasFactory;
     protected $table = 'special_offers';
     protected $guarded = false;
+
+    public function specialOfferGalleries()
+    {
+        return $this->hasMany(SpecialOfferGallery::class);
+    }
 }

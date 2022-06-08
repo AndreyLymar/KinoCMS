@@ -46,7 +46,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Личный кабинет</a>
+                                <a class="dropdown-item" href="{{route('user.personal_accounts.index')}}">Личный кабинет</a>
 
                             @can('view',auth()->user())
                                     <a class="dropdown-item" href="{{ route('admin.statistic.index') }}">Админка</a>

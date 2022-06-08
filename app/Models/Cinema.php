@@ -10,4 +10,11 @@ class Cinema extends Model
     use HasFactory;
     protected $table = 'cinemas';
     protected $guarded = false;
+
+    public function halls(){
+        return $this->hasMany(Hall::class);
+    }
+    public function cinemaGalleries(){
+        return $this->hasMany(CinemaGallery::class);
+    }
 }

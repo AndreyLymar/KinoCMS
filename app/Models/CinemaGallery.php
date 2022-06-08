@@ -10,4 +10,8 @@ class CinemaGallery extends Model
     use HasFactory;
     protected $table = 'cinema_galleries';
     protected $guarded = false;
+
+    public function cinema(){
+        return $this->belongsTo(Cinema::class);
+    }
 }

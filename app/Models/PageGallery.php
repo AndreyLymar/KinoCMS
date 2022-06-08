@@ -10,4 +10,8 @@ class PageGallery extends Model
     use HasFactory;
     protected $table = 'page_galleries';
     protected $guarded = false;
+
+    public function page(){
+       return $this->belongsTo(Page::class);
+    }
 }
