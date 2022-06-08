@@ -51,7 +51,12 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => 'admin'],
         Route::get('/cinemas/edit/{cinema}', 'CinemaController@edit')->name('admin.cinemas.edit');
         Route::post('/cinemas/store_or_update', 'CinemaController@updateOrCreate')->name('admin.cinemas.update_or_create');
         Route::delete('/cinemas/{cinema}', 'CinemaController@destroy')->name('admin.cinemas.destroy');
-
+    });
+    Route::group(['namespace'=>'Hall'], function(){
+        Route::get('/halls/create/{cinema}', 'HallController@create')->name('admin.halls.create');
+        Route::get('/halls/edit/{hall}/{cinema}', 'HallController@edit')->name('admin.halls.edit');
+        Route::post('/halls/store_or_update', 'HallController@updateOrCreate')->name('admin.halls.update_or_create');
+        Route::delete('/halls/{hall}/{cinema}', 'HallController@destroy')->name('admin.halls.destroy');
     });
     Route::group(['namespace'=>'City'], function(){
         Route::get('/cities', 'CityController@index')->name('admin.cities.index');
@@ -59,7 +64,6 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => 'admin'],
         Route::get('/cities/edit/{city}', 'CityController@edit')->name('admin.cities.edit');
         Route::post('/cities/store_or_update', 'CityController@updateOrCreate')->name('admin.cities.update_or_create');
         Route::delete('/cities/{city}', 'CityController@destroy')->name('admin.cities.destroy');
-
     });
     Route::group(['namespace'=>'News'], function(){
         Route::get('/news', 'NewsController@index')->name('admin.news.index');

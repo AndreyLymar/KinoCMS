@@ -12,9 +12,9 @@ class Hall extends Model
     protected $guarded = false;
 
     public function cinema(){
-        return $this->belongsTo(Hall::class);
+        return $this->belongsTo(Cinema::class);
     }
     public function hallGalleries(){
-        return $this->hasMany(CinemaGallery::class);
+        return $this->hasMany(HallGallery::class);
     }
 }
