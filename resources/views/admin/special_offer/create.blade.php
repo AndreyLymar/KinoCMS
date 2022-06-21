@@ -187,6 +187,7 @@
         function checkNew(file, i) {
             if (file) {
                 document.getElementById('img' + i ).src = window.URL.createObjectURL(file);
+                document.getElementById('formFile' + i ).insertAdjacentHTML('beforebegin', "<input type='hidden' value='' id='id'" + i + " name='id[]'>");
             } else {
                 document.getElementById('img' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
 
@@ -194,6 +195,21 @@
             if (error(file)) {
                 document.getElementById('img' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
                 document.getElementById('formFile' + i).value = '';
+            }
+        }
+        function checkOld(file, i) {
+            if (file) {
+                document.getElementById('imgO' + i ).src = window.URL.createObjectURL(file);
+                document.getElementById('idO' + i ).remove();
+                document.getElementById('formFileO' + i ).insertAdjacentHTML('beforebegin', "<input type='hidden' value='' id='id'" + i + " name='id[]'>");
+
+            } else {
+                document.getElementById('imgO' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
+
+            }
+            if (error(file)) {
+                document.getElementById('imgO' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
+                document.getElementById('formFileO' + i).value = '';
             }
         }
         function error(file) {

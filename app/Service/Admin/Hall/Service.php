@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 class Service
 {
     public function updateOrCreate($data){
-        $hall_id = intval($data['hall_id']) ?? null;
+        $hall_id = $data['hall_id'] ?? null;
 
         $data['hall_img'] = $data['hall_img'] ?? null;
         $data['top_banner_img'] = $data['top_banner_img'] ?? null;
@@ -39,29 +39,29 @@ class Service
         }elseif (isset($top_banner_img_old)){
             unset($data['top_banner_img']);
         }
-        Hall::updateOrCreate(['id' => $hall_id], $data);
+        Hall::updateOrCreate(['id' => $hall_id, 'cinema_id' => $data['cinema_id']], $data);
 
         if($ids !== null){
             $dbData = HallGallery::all()->pluck('id');
             $delImgs = $dbData->diff($ids);
             if(!empty($delImgs) && count($dbData) > count($imgs)){
                 foreach($delImgs as $delImg){
-                    HallGallery::where('id',$delImg)->delete();
+                    HallGallery::where([['id',$delImg],['hall_id',$hall_id]])->delete();
                 }
             }
-        }else{
-            HallGallery::truncate();
         }
+
         $hall_id = $hall_id !== null ? $hall_id : Hall::all()->last()->id;
+
         if(isset($ids)){
             foreach ($ids as $i => $id)
             {
-                $id = intval($id) ?? null;
+                $id = $id ?? null;
                 $imgs['img'][$i] = $imgs['img'][$i] ?? null;
 
                 if($imgs['img'][$i] !== null){
                     $imgs['img'][$i] = Storage::disk('public')->put('/images', $imgs['img'][$i]);
-                    HallGallery::updateOrCreate(['hall_id' => $hall_id, 'id' => $id], ['hall_id' => $hall_id, 'img' => $imgs['img'][$i]]);
+                    HallGallery::updateOrCreate(['hall_id' => $hall_id, 'id' => $id ], ['hall_id' => $hall_id, 'img' => $imgs['img'][$i]]);
                 }
                 elseif ($id !== null){
                     unset($imgs['img'][$i]);

@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Storage;
 class Service
 {
     public function updateOrCreate($data){
-
-        $cinema_id = intval($data['cinema_id']) ?? null;
+        $cinema_id = $data['cinema_id'] ?? null;
 
         $data['logo_img'] = $data['logo_img'] ?? null;
         $data['top_banner_img'] = $data['top_banner_img'] ?? null;
@@ -47,17 +46,15 @@ class Service
             $delImgs = $dbData->diff($ids);
             if(!empty($delImgs) && count($dbData) > count($imgs)){
                 foreach($delImgs as $delImg){
-                    CinemaGallery::where('id',$delImg)->delete();
+                    CinemaGallery::where([['id',$delImg],['cinema_id',$cinema_id]])->delete();
                 }
             }
-        }else{
-            CinemaGallery::truncate();
         }
         $cinema_id = $cinema_id !== null ? $cinema_id : Cinema::all()->last()->id;
         if(isset($ids)){
             foreach ($ids as $i => $id)
             {
-                $id = intval($id) ?? null;
+                $id = $id ?? null;
                 $imgs['img'][$i] = $imgs['img'][$i] ?? null;
 
                 if($imgs['img'][$i] !== null){

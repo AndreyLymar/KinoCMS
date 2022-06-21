@@ -2,9 +2,20 @@
 
 namespace App\Http\Controllers\Admin\Film;
 
-class FilmController extends BaseController
+use App\Http\Controllers\Controller;
+use App\Service\Admin\Film\Service;
+
+class FilmController extends Controller
 {
-    public function index(){
+    public $service;
+
+    public function __construct(Service $service)
+    {
+        $this->service = $service;
+    }
+
+    public function index()
+    {
         return view('admin.film.index');
     }
 }

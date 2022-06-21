@@ -10,7 +10,7 @@ class Service
 {
     public function updateOrCreate($data){
 
-        $news_id = intval($data['news_id']) ?? null;
+        $news_id = $data['news_id'] ?? null;
         $data['main_img'] = $data['main_img'] ?? null;
         $main_img_old = $data['main_img_old'] ?? null;
         $data['status'] = $data['status'] ?? 0;
@@ -37,14 +37,14 @@ class Service
                     NewsGallery::where('id',$delImg)->delete();
                 }
             }
-        }else{
-            NewsGallery::truncate();
         }
+
         $news_id = $news_id !== null ? $news_id : News::all()->last()->id;
+
         if(isset($ids)){
             foreach ($ids as $i => $id)
             {
-                $id = intval($id) ?? null;
+                $id = $id ?? null;
                 $imgs['img'][$i] = $imgs['img'][$i] ?? null;
 
                 if($imgs['img'][$i] !== null){

@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Storage;
 class Service
 {
     public function updateOrCreate($data){
-
-        $special_offer_id = intval($data['special_offer_id']) ?? null;
+//dd($data);
+        $special_offer_id = $data['special_offer_id'] ?? null;
         $data['main_img'] = $data['main_img'] ?? null;
         $main_img_old = $data['main_img_old'] ?? null;
         $data['status'] = $data['status'] ?? 0;
@@ -41,14 +41,14 @@ class Service
                     SpecialOfferGallery::where('id',$delImg)->delete();
                 }
             }
-        }else{
-            SpecialOfferGallery::truncate();
         }
+
         $special_offer_id = $special_offer_id !== null ? $special_offer_id : SpecialOffer::all()->last()->id;
+
         if(isset($ids)){
             foreach ($ids as $i => $id)
             {
-                $id = intval($id) ?? null;
+                $id = $id ?? null;
                 $imgs['img'][$i] = $imgs['img'][$i] ?? null;
 
                 if($imgs['img'][$i] !== null){

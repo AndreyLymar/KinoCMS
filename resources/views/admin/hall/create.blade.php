@@ -195,6 +195,7 @@
         function checkNew(file, i) {
             if (file) {
                 document.getElementById('img' + i ).src = window.URL.createObjectURL(file);
+                document.getElementById('formFile' + i ).insertAdjacentHTML('beforebegin', "<input type='hidden' value='' id='id'" + i + " name='id[]'>");
             } else {
                 document.getElementById('img' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
 

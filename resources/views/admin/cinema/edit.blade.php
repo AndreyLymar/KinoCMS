@@ -6,7 +6,7 @@
 @section('content')
 
     <form action="{{route('admin.cinemas.update_or_create')}}" method="post" enctype="multipart/form-data" class="mb-5">
-        @csrf
+    @csrf
         <input type="hidden" value="{{$cinema->id}}" name="cinema_id">
         <div class="row mt-3">
             <div class="col-md-2">
@@ -165,6 +165,7 @@
                                 <div class="col-md-12 mt-2 p-0 mr-5">
                                     <div class="mb-3 p-0 col-md-12">
                                         <label for="formFile{{$i}}" class="form-label"></label>
+                                        <input type='hidden' value='0' id='id{{$i}}' name='id[]'>
                                         <input class="form-control @error('img') is-invalid @enderror " name="img[]"
                                                accept="image/*"
                                                type="file"
@@ -181,50 +182,6 @@
                         </div>
                     @endfor
             </div>
-
-
-        {{--         Залы    --}}
-        <div class="row mt-5"><b>Залы</b></div>
-        <div class="row mt-5 ml-5 mr-5">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Номер:</th>
-                    <th scope="col">Дата создания</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($cinema->halls as $hall)
-                    <tr>
-                        <td>{{$hall->number}}</td>
-                        <td>{{$hall->created_at}}</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-4">
-                                    <a href="{{route('admin.halls.edit',[$hall->id, $cinema->id])}}" class=""><img
-                                            src="https://img.icons8.com/ios/30/000000/edit--v1.png"/></a>
-                                </div>
-                                <div class="col-4">
-                                    <form action="{{route('admin.halls.destroy', [$hall->id, $cinema->id])}}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit"><img
-                                                src="https://img.icons8.com/ios/30/000000/delete--v1.png"/></button>
-                                    </form>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="row mt-5 ml-5 mr-5">
-            <div class="col-2">
-                <a href="{{route('admin.halls.create', $cinema->id)}}" class="btn-dark btn">Добавить зал</a>
-            </div>
-        </div>
 
 
 {{--        Сео блок        --}}
@@ -274,6 +231,49 @@
         </div>
     </form>
 
+{{--             Залы    --}}
+            <div class="row mt-5"><b>Залы</b></div>
+            <div class="row mt-5 ml-5 mr-5">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Номер:</th>
+                        <th scope="col">Дата создания</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($cinema->halls as $hall)
+                        <tr>
+                            <td>{{$hall->number}}</td>
+                            <td>{{$hall->created_at}}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a href="{{route('admin.halls.edit',[$hall->id, $cinema->id])}}" class=""><img
+                                                src="https://img.icons8.com/ios/30/000000/edit--v1.png"/></a>
+                                    </div>
+                                    <div class="col-4">
+                                        <form action="{{route('admin.halls.destroy', [$hall->id, $cinema->id])}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit"><img
+                                                    src="https://img.icons8.com/ios/30/000000/delete--v1.png"/></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="row mt-5 ml-5 mr-5">
+                <div class="col-2">
+                    <a href="{{route('admin.halls.create', $cinema->id)}}" class="btn-dark btn">Добавить зал</a>
+                </div>
+            </div>
+
 @endsection
 @section('script')
     <script>
@@ -284,14 +284,14 @@
                  document.getElementById('imgO' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
                  document.getElementById('formFileO' + i).value = '';
                  if(document.getElementById('idO' + i)){
-                     document.getElementById('idO' + i).remove();
+                     document.getElementById('idO' + i).value = '0';
                  }
              }
              if(document.getElementById('img' + i)){
                  document.getElementById('img' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
                  document.getElementById('formFile' + i).value = '';
                  if(document.getElementById('id' + i)){
-                     document.getElementById('id' + i).remove();
+                     document.getElementById('id' + i).value = '0';
                  }
              }
 
@@ -302,23 +302,23 @@
                  document.getElementById('top_banner_img_old').remove();
              }
          }
-        function checkNew(file, i) {
-            if (file) {
-                document.getElementById('img' + i ).src = window.URL.createObjectURL(file);
-                document.getElementById('formFile' + i ).insertAdjacentHTML('beforebegin', "<input type='hidden' value='' id='id'" + i + " name='id[]'>");
-            } else {
-                document.getElementById('img' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
+         function checkNew(file, i) {
+             if (file) {
+                 document.getElementById('img' + i ).src = window.URL.createObjectURL(file);
+                 document.getElementById('id' + i).value = '';
+             } else {
+                 document.getElementById('img' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
 
-            }
-            if (error(file)) {
-                document.getElementById('img' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
-                document.getElementById('formFile' + i).value = '';
-            }
-        }
+             }
+             if (error(file)) {
+                 document.getElementById('img' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
+                 document.getElementById('formFile' + i).value = '';
+             }
+         }
          function checkOld(file, i) {
              if (file) {
                  document.getElementById('imgO' + i ).src = window.URL.createObjectURL(file);
-
+                 document.getElementById('idO' + i ).value = ''
              } else {
                  document.getElementById('imgO' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
 

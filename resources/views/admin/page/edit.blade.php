@@ -124,6 +124,7 @@
                                 <div class="col-md-12 mt-2 p-0 mr-5">
                                     <div class="mb-3 p-0 col-md-12">
                                         <label for="formFile{{$i}}" class="form-label"></label>
+                                        <input type='hidden' value='0' id="id{{$i}}" name='id[]'>
                                         <input class="form-control @error('img') is-invalid @enderror " name="img[]"
                                                accept="image/*"
                                                type="file"
@@ -196,14 +197,14 @@
                  document.getElementById('imgO' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
                  document.getElementById('formFileO' + i).value = '';
                  if(document.getElementById('idO' + i)){
-                     document.getElementById('idO' + i).remove();
+                     document.getElementById('idO' + i).value = '0';
                  }
              }
              if(document.getElementById('img' + i)){
                  document.getElementById('img' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
                  document.getElementById('formFile' + i).value = '';
                  if(document.getElementById('id' + i)){
-                     document.getElementById('id' + i).remove();
+                     document.getElementById('id' + i).value = '0';
                  }
              }
 
@@ -211,23 +212,25 @@
                  document.getElementById('main_img_old').remove();
              }
          }
-        function checkNew(file, i) {
-            if (file) {
-                document.getElementById('img' + i ).src = window.URL.createObjectURL(file);
-                document.getElementById('formFile' + i ).insertAdjacentHTML('beforebegin', "<input type='hidden' value='' id='id'" + i + " name='id[]'>");
-            } else {
-                document.getElementById('img' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
+         function checkNew(file, i) {
+             if (file) {
+                 document.getElementById('img' + i ).src = window.URL.createObjectURL(file);
+                 // document.getElementById('formFile' + i ).insertAdjacentHTML('beforebegin',`<input type='hidden' value='' id='id` + i +`'  name='id[]'>`);
+                 document.getElementById('id' + i).value = '';
 
-            }
-            if (error(file)) {
-                document.getElementById('img' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
-                document.getElementById('formFile' + i).value = '';
-            }
-        }
+             } else {
+                 document.getElementById('img' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
+             }
+             if (error(file)) {
+                 document.getElementById('img' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
+                 document.getElementById('formFile' + i).value = '';
+             }
+         }
          function checkOld(file, i) {
              if (file) {
                  document.getElementById('imgO' + i ).src = window.URL.createObjectURL(file);
-
+                 document.getElementById('idO' + i ).value = '';
+                 // document.getElementById('formFileO' + i ).insertAdjacentHTML('beforebegin', `<input type='hidden' value='' id='id` + i +`'  name='id[]'>`);
              } else {
                  document.getElementById('imgO' + i).src = 'https://img.icons8.com/color/96/undefined/downloads.png';
 
