@@ -41,7 +41,7 @@ class SpecialOfferController extends Controller
 
     public function destroy(SpecialOffer $special_offer)
     {
-        $special_offer->delete();
+        $this->service->delete($special_offer);
         return redirect()->route('admin.special_offers.index');
 
     }

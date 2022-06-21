@@ -52,7 +52,7 @@
                     <div class="col-md-4 mt-2 p-0 mr-5">
                         <div class="mb-3 p-0 col-md-12">
                             <label for="formFileHall" class="form-label"></label>
-                            <input type="hidden" value="{{$hall->hall_img}}" id="logo_img_old" name="logo_img_old">
+                            <input type="hidden" value="{{$hall->hall_img}}" id="hall_img_old" name="hall_img_old">
                             <input class="form-control @error('hall_img') is-invalid @enderror " name="hall_img"
                                    accept="image/*"
                                    type="file"

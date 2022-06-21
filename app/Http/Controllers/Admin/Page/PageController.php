@@ -45,7 +45,7 @@ class PageController extends Controller
 
     public function destroy(Page $page)
     {
-        $page->delete();
+        $this->service->delete($page);
         return redirect()->route('admin.pages.index');
 
     }

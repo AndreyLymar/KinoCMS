@@ -9,6 +9,7 @@ class Service
 {
     public function update($data, $home){
         if(!empty($data)) {
+            Storage::disk('public')->delete($home->bg_img);
             if (isset($data['bg_img'])) {
                 $data['bg_img'] = Storage::disk('public')->put('/images', $data['bg_img']);
             }

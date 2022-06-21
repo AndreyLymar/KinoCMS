@@ -37,7 +37,7 @@ class HallController extends Controller
 
     public function destroy(Hall $hall, Cinema $cinema)
     {
-        $hall->delete();
+        $this->service->delete($hall);
         return redirect()->route('admin.cinemas.edit', $cinema->id);
 
     }

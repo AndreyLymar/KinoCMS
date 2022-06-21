@@ -41,7 +41,7 @@ class CinemaController extends Controller
 
     public function destroy(Cinema $cinema)
     {
-        $cinema->delete();
+        $this->service->delete($cinema);
         return redirect()->route('admin.cinemas.index');
 
     }

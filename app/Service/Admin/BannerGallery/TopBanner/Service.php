@@ -13,11 +13,17 @@ class Service
             $delImgs = $dbData->diff($data['id']);
             if(!empty($delImgs) && count($dbData) > count($data['id'])){
                 foreach($delImgs as $delImg){
+
+                    Storage::disk('public')->delete(HomePageGallery::find($delImg)->img);
                     HomePageGallery::where('id',$delImg)->delete();
                 }
             }
         }else{
-            HomePageGallery::truncate();
+            $homePageGallery = HomePageGallery::all();
+            foreach ($homePageGallery as $img) {
+                Storage::disk('public')->delete($img->img);
+                $img->delete();
+            }
         }
         if (!empty($data)) {
             if (!empty($data['img'])) {

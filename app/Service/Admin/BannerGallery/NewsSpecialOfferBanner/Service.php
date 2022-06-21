@@ -14,11 +14,16 @@ class Service
             $delImgs = $dbData->diff($data['id']);
             if(!empty($delImgs) && count($dbData) > count($data['id'])){
                 foreach($delImgs as $delImg){
+                    Storage::disk('public')->delete(NewsSpecialOfferGallery::find($delImg)->img);
                     NewsSpecialOfferGallery::where('id',$delImg)->delete();
                 }
             }
         }else{
-            NewsSpecialOfferGallery::truncate();
+            $newsSpecialOfferGallery = NewsSpecialOfferGallery::all();
+            foreach ($newsSpecialOfferGallery as $img) {
+                Storage::disk('public')->delete($img->img);
+                $img->delete();
+            }
         }
         if (!empty($data)) {
             if (!empty($data['img'])) {

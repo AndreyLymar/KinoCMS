@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Storage;
 
 class Service
 {
-    public function updateOrCreate($data){
+    public function updateOrCreate($data)
+    {
 //dd($data);
         $special_offer_id = $data['special_offer_id'] ?? null;
         $data['main_img'] = $data['main_img'] ?? null;
@@ -26,40 +27,54 @@ class Service
         unset($data['id']);
         unset($data['main_img_old']);
 
-        if( $data['main_img'] !== null){
+        $mainImg = $special_offer_id !== null ? SpecialOffer::find($special_offer_id)->main_img : '';
+
+        if ($data['main_img'] !== null) {
+            Storage::disk('public')->delete($mainImg);
             $data['main_img'] = Storage::disk('public')->put('/images', $data['main_img']);
-        }elseif (isset($main_img_old)){
+        } elseif (isset($main_img_old)) {
             unset($data['main_img']);
+        } else {
+            Storage::disk('public')->delete($mainImg);
         }
+
         SpecialOffer::updateOrCreate(['id' => $special_offer_id], $data);
 
-        if($ids !== null){
+        if ($ids !== null) {
             $dbData = SpecialOfferGallery::all()->pluck('id');
             $delImgs = $dbData->diff($ids);
-            if(!empty($delImgs) && count($dbData) > count($imgs)){
-                foreach($delImgs as $delImg){
-                    SpecialOfferGallery::where('id',$delImg)->delete();
+            if (!empty($delImgs)) {
+                foreach ($delImgs as $delImg) {
+                    Storage::disk('public')->delete(SpecialOfferGallery::find($delImg)->img);
+                    SpecialOfferGallery::where('id', $delImg)->delete();
                 }
             }
         }
 
         $special_offer_id = $special_offer_id !== null ? $special_offer_id : SpecialOffer::all()->last()->id;
 
-        if(isset($ids)){
-            foreach ($ids as $i => $id)
-            {
+        if (isset($ids)) {
+            foreach ($ids as $i => $id) {
                 $id = $id ?? null;
                 $imgs['img'][$i] = $imgs['img'][$i] ?? null;
 
-                if($imgs['img'][$i] !== null){
+                if ($imgs['img'][$i] !== null) {
                     $imgs['img'][$i] = Storage::disk('public')->put('/images', $imgs['img'][$i]);
                     SpecialOfferGallery::updateOrCreate(['special_offer_id' => $special_offer_id, 'id' => $id], ['special_offer_id' => $special_offer_id, 'img' => $imgs['img'][$i]]);
-                }
-                elseif ($id !== null){
+                } elseif ($id !== null) {
                     unset($imgs['img'][$i]);
                     unset($id);
                 }
             }
         }
+    }
+
+    public function delete($special_offer){
+        $specialOfferGalleries = SpecialOfferGallery::where('special_offer_id',$special_offer->id)->get();
+        Storage::disk('public')->delete($special_offer->main_img);
+        foreach ($specialOfferGalleries as $specialOfferGallery){
+            Storage::disk('public')->delete($specialOfferGallery->img);
+        }
+        $special_offer->delete();
     }
 }
