@@ -79,6 +79,7 @@
 <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
 @yield('script')
 
+@include('includes.user.footer')
 
 </body>
 </html>

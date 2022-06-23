@@ -144,9 +144,9 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-5 ml-3">
+        <div class="row mb-5 mt-3 ">
             <div class="col-md-4">
-                <button type="submit" class="btn btn-dark">Именить</button>
+                <button type="submit" class="btn btn-dark">Изменить</button>
             </div>
         </div>
     </form>

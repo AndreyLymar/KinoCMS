@@ -60,7 +60,7 @@ class Service
             $delImgs = $dbData->diff($ids);
             if (!empty($delImgs)) {
                 foreach ($delImgs as $delImg) {
-                    Storage::disk('public')->delete(CinemaGallery::find($delImg)->img);
+                    Storage::disk('public')->delete(CinemaGallery::where([['id', $delImg], ['cinema_id', $cinema_id]])->value('img'));
                     CinemaGallery::where([['id', $delImg], ['cinema_id', $cinema_id]])->delete();
                 }
             }

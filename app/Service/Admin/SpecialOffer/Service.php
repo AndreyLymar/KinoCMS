@@ -14,7 +14,6 @@ class Service
 {
     public function updateOrCreate($data)
     {
-//dd($data);
         $special_offer_id = $data['special_offer_id'] ?? null;
         $data['main_img'] = $data['main_img'] ?? null;
         $main_img_old = $data['main_img_old'] ?? null;
@@ -45,8 +44,8 @@ class Service
             $delImgs = $dbData->diff($ids);
             if (!empty($delImgs)) {
                 foreach ($delImgs as $delImg) {
-                    Storage::disk('public')->delete(SpecialOfferGallery::find($delImg)->img);
-                    SpecialOfferGallery::where('id', $delImg)->delete();
+                    Storage::disk('public')->delete(SpecialOfferGallery::where([['id', $delImg],['special_offer_id',$special_offer_id]])->value('img'));
+                    SpecialOfferGallery::where([['id', $delImg],['special_offer_id', $special_offer_id]])->delete();
                 }
             }
         }

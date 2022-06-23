@@ -7,19 +7,20 @@
 {{--                </a>--}}
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" class="nav-link px-2 {{strpos($_SERVER['REQUEST_URI'], '/main') !== false ? 'text-secondary' : 'text-white'}}">Главная</a></li>
+                    <li><a href="{{route('user.main.index')}}" class="nav-link px-2 {{strpos($_SERVER['REQUEST_URI'], '/main') !== false ? 'text-secondary' : 'text-white'}}">Главная</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Афиша</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Расписание</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Скоро</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Кинотеатры</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Акции</a></li>
+                    <li><a href="{{route('user.cinemas.index')}}" class="nav-link px-2 {{strpos($_SERVER['REQUEST_URI'], '/cinemas') !== false ? 'text-secondary' : 'text-white'}} text-white">Кинотеатры</a></li>
+                    <li><a href="{{route('user.special_offers.index')}}" class="nav-link px-2 {{strpos($_SERVER['REQUEST_URI'], '/special_offers') !== false ? 'text-secondary' : 'text-white'}} text-white">Акции</a></li>
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 navbar-nav">
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>О кинотеатре</a>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {{strpos($_SERVER['REQUEST_URI'], '/pages') !== false ? 'text-secondary' : 'text-white'}}>О кинотеатре</a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="">Новости</a>
-                                    <a class="dropdown-item" href="">Реклама</a>
-                                    <a class="dropdown-item" href="">Кафе</a>
+                                    <a class="dropdown-item" href="{{route('user.news.index')}}">Новости</a>
+                                @foreach($pages as $page)
+                                        <a class="dropdown-item" href="{{route('user.pages.show',$page->id)}}">{{$page->title}}</a>
+                                    @endforeach
                                 </div>
                             </li>
                     </ul>

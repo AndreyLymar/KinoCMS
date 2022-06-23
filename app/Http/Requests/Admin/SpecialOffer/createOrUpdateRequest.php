@@ -31,7 +31,7 @@ class createOrUpdateRequest extends FormRequest
             'title' => 'required|string|max:255',
             'date_published' => 'required|date',
             'link_to_video' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string',
             'main_img' => 'nullable|file',
             'main_img_old' => 'nullable|string',
             'img' => 'nullable|array',

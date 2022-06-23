@@ -10,4 +10,8 @@ class FilmGallery extends Model
     use HasFactory;
     protected $table = 'film_galleries';
     protected $guarded = false;
+
+    public function film(){
+        return $this->belongsTo(Film::class);
+    }
 }

@@ -40,8 +40,8 @@ class Service
             $delImgs = $dbData->diff($ids);
             if (!empty($delImgs)) {
                 foreach ($delImgs as $delImg) {
-                    Storage::disk('public')->delete(PageGallery::find($delImg)->img);
-                    PageGallery::where('id', $delImg)->where('page_id', $page_id)->delete();
+                    Storage::disk('public')->delete(PageGallery::where([['id', $delImg],['page_id', $page_id]])->value('img'));
+                    PageGallery::where([['id', $delImg],['page_id', $page_id]])->delete();
                 }
             }
         }

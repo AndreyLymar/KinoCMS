@@ -17,14 +17,18 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::group(['namespace'=>'User'], function(){
-    Route::group(['namespace'=>'Main'], function(){
         Route::get('/', 'MainController@redirect');
         Route::get('/main', 'MainController@index')->name('user.main.index');
-    });
-    Route::group(['namespace'=>'PersonalAccount'], function(){
         Route::get('/personal_account', 'PersonalAccountController@index')->name('user.personal_accounts.index');
         Route::patch('/personal_account/{personal_account}', 'PersonalAccountController@update')->name('user.personal_accounts.update');
-    });
+        Route::get('/cinemas', 'CinemasController@index')->name('user.cinemas.index');
+        Route::get('/cinemas/{cinema}', 'CinemasController@show')->name('user.cinemas.show');
+        Route::get('/halls/{hall}', 'HallsController@show')->name('user.halls.show');
+        Route::get('/pages/{page}', 'PageController@show')->name('user.pages.show');
+        Route::get('/special_offers', 'SpecialOfferController@index')->name('user.special_offers.index');
+        Route::get('/special_offers/{special_offer}', 'SpecialOfferController@show')->name('user.special_offers.show');
+        Route::get('/news', 'NewsController@index')->name('user.news.index');
+        Route::get('/news/{news}', 'NewsController@show')->name('user.news.show');
 });
 
 Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => 'admin'], function(){
@@ -43,6 +47,14 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => 'admin'],
         Route::get('/special_offers/edit/{special_offer}', 'SpecialOfferController@edit')->name('admin.special_offers.edit');
         Route::post('/special_offers/store_or_update', 'SpecialOfferController@updateOrCreate')->name('admin.special_offers.update_or_create');
         Route::delete('/special_offers/{special_offer}', 'SpecialOfferController@destroy')->name('admin.special_offers.destroy');
+
+    });
+    Route::group(['namespace'=>'Film'], function(){
+        Route::get('/films', 'FilmController@index')->name('admin.films.index');
+        Route::get('/films/create/{status}', 'FilmController@create')->name('admin.films.create');
+        Route::get('/films/edit/{film}', 'FilmController@edit')->name('admin.films.edit');
+        Route::post('/films/store_or_update', 'FilmController@updateOrCreate')->name('admin.films.update_or_create');
+        Route::delete('/films/{film}', 'FilmController@destroy')->name('admin.films.destroy');
 
     });
     Route::group(['namespace'=>'Cinema'], function(){

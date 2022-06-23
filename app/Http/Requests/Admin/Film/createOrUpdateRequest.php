@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Pages;
+namespace App\Http\Requests\Admin\Film;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,9 +26,13 @@ class createOrUpdateRequest extends FormRequest
     {
         return [
             'id' => 'nullable|array',
-            'page_id' => 'nullable|integer',
-            'status' => 'nullable|string',
+            'film_id' => 'nullable|integer',
+            'status' => 'string',
+            'type_3d' => 'nullable|string',
+            'type_2d' => 'nullable|string',
+            'type_imax' => 'nullable|string',
             'title' => 'required|string|max:255',
+            'url_movie_trailer' => 'required|string|max:255',
             'description' => 'required|string',
             'main_img' => 'nullable|file',
             'main_img_old' => 'nullable|string',

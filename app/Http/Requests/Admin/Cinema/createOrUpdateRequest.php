@@ -29,7 +29,7 @@ class createOrUpdateRequest extends FormRequest
             'cinema_id' => 'nullable|integer',
             'terms' => 'required|string',
             'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string',
             'logo_img' => 'nullable|file',
             'logo_img_old' => '',
             'top_banner_img_old' => '',

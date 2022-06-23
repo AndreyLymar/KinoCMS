@@ -29,19 +29,19 @@
                                     src="https://img.icons8.com/ios/30/000000/edit--v1.png"/></a>
                         </div>
                         @if($home !== null)
-                            <div class="col-4">
-                                <form action="{{route('admin.pages.main.destroy',$home->id)}}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit"><img
-                                            src="https://img.icons8.com/ios/30/000000/delete--v1.png"/></button>
-                                </form>
-                            </div>
+{{--                            <div class="col-4">--}}
+{{--                                <form action="{{route('admin.pages.main.destroy',$home->id)}}" method="post">--}}
+{{--                                    @csrf--}}
+{{--                                    @method('delete')--}}
+{{--                                    <button type="submit"><img--}}
+{{--                                            src="https://img.icons8.com/ios/30/000000/delete--v1.png"/></button>--}}
+{{--                                </form>--}}
+{{--                            </div>--}}
                         @endif
                     </div>
                 </td>
             </tr>
-            @foreach($pages as $page)
+            @foreach($pages as $i => $page)
                 <tr>
                     <td>{{$page->title}}</td>
                     <td>{{$page->created_at}}</td>
@@ -56,6 +56,7 @@
                                 <a href="{{route('admin.pages.edit',$page->id)}}" class=""><img
                                         src="https://img.icons8.com/ios/30/000000/edit--v1.png"/></a>
                             </div>
+                            @if($i>=6)
                             <div class="col-4">
                                 <form action="{{route('admin.pages.destroy',$page->id)}}" method="post">
                                     @csrf
@@ -64,6 +65,7 @@
                                             src="https://img.icons8.com/ios/30/000000/delete--v1.png"/></button>
                                 </form>
                             </div>
+                            @endif
                         </div>
                     </td>
                 </tr>
