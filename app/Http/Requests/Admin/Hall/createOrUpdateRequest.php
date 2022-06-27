@@ -28,7 +28,7 @@ class createOrUpdateRequest extends FormRequest
             'id' => 'nullable|array',
             'hall_id' => 'nullable|integer',
             'cinema_id' => 'nullable|integer',
-            'number' => 'required|integer|max:255|unique:halls,number,' . $this->hall_id,
+            'number' => 'required|integer|max:255|unique:halls,id,' . $this->hall_id,
             'description' => 'required|string',
             'hall_img' => 'nullable|file',
             'hall_img_old' => '',

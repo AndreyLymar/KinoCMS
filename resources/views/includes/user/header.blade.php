@@ -8,11 +8,11 @@
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="{{route('user.main.index')}}" class="nav-link px-2 {{strpos($_SERVER['REQUEST_URI'], '/main') !== false ? 'text-secondary' : 'text-white'}}">Главная</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Афиша</a></li>
+                    <li><a href="{{route('user.posters.index','already')}}" class="nav-link px-2 {{strpos($_SERVER['REQUEST_URI'], '/posters/already') !== false ? 'text-secondary' : 'text-white'}}">Афиша</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Расписание</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Скоро</a></li>
-                    <li><a href="{{route('user.cinemas.index')}}" class="nav-link px-2 {{strpos($_SERVER['REQUEST_URI'], '/cinemas') !== false ? 'text-secondary' : 'text-white'}} text-white">Кинотеатры</a></li>
-                    <li><a href="{{route('user.special_offers.index')}}" class="nav-link px-2 {{strpos($_SERVER['REQUEST_URI'], '/special_offers') !== false ? 'text-secondary' : 'text-white'}} text-white">Акции</a></li>
+                    <li><a href="{{route('user.posters.index','soon')}}" class="nav-link px-2 {{strpos($_SERVER['REQUEST_URI'], '/posters/soon') !== false ? 'text-secondary' : 'text-white'}}">Скоро</a></li>
+                    <li><a href="{{route('user.cinemas.index')}}" class="nav-link px-2 {{strpos($_SERVER['REQUEST_URI'], '/cinemas') !== false ? 'text-secondary' : 'text-white'}}">Кинотеатры</a></li>
+                    <li><a href="{{route('user.special_offers.index')}}" class="nav-link px-2 {{strpos($_SERVER['REQUEST_URI'], '/special_offers') !== false ? 'text-secondary' : 'text-white'}}">Акции</a></li>
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 navbar-nav">
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {{strpos($_SERVER['REQUEST_URI'], '/pages') !== false ? 'text-secondary' : 'text-white'}}>О кинотеатре</a>

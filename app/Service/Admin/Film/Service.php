@@ -25,6 +25,8 @@ class Service
         unset($data['id']);
         unset($data['main_img_old']);
 
+//        dd($data);
+
         $mainImg = $film_id !== null ? Film::find($film_id)->main_img : '';
 
 

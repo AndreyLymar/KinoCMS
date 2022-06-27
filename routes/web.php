@@ -19,6 +19,7 @@ Auth::routes();
 Route::group(['namespace'=>'User'], function(){
         Route::get('/', 'MainController@redirect');
         Route::get('/main', 'MainController@index')->name('user.main.index');
+        Route::get('/posters/{status}', 'PosterController@index')->name('user.posters.index');
         Route::get('/personal_account', 'PersonalAccountController@index')->name('user.personal_accounts.index');
         Route::patch('/personal_account/{personal_account}', 'PersonalAccountController@update')->name('user.personal_accounts.update');
         Route::get('/cinemas', 'CinemasController@index')->name('user.cinemas.index');
@@ -29,6 +30,7 @@ Route::group(['namespace'=>'User'], function(){
         Route::get('/special_offers/{special_offer}', 'SpecialOfferController@show')->name('user.special_offers.show');
         Route::get('/news', 'NewsController@index')->name('user.news.index');
         Route::get('/news/{news}', 'NewsController@show')->name('user.news.show');
+        Route::get('/films/{film}', 'FilmController@show')->name('user.films.show');
 });
 
 Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => 'admin'], function(){
@@ -47,6 +49,15 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => 'admin'],
         Route::get('/special_offers/edit/{special_offer}', 'SpecialOfferController@edit')->name('admin.special_offers.edit');
         Route::post('/special_offers/store_or_update', 'SpecialOfferController@updateOrCreate')->name('admin.special_offers.update_or_create');
         Route::delete('/special_offers/{special_offer}', 'SpecialOfferController@destroy')->name('admin.special_offers.destroy');
+
+    });
+    Route::group(['namespace'=>'Schedule'], function(){
+        Route::get('/schedules', 'ScheduleController@index')->name('admin.schedules.index');
+//        Route::get('/schedules/{}', 'ScheduleController@index')->name('admin.schedules.index');
+//        Route::get('/films/create/{status}', 'FilmController@create')->name('admin.films.create');
+        Route::post('/schedules/store_or_update', 'ScheduleController@store_or_update')->name('admin.schedules.store_or_update');
+//        Route::post('/schedules/store', 'ScheduleController@store')->name('admin.schedules.store');
+//        Route::delete('/films/{film}', 'FilmController@destroy')->name('admin.films.destroy');
 
     });
     Route::group(['namespace'=>'Film'], function(){

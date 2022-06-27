@@ -32,6 +32,9 @@
     <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
+
+{{--    CSRF token   --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('link')
     <style>
         button{

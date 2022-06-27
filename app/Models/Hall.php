@@ -17,4 +17,7 @@ class Hall extends Model
     public function hallGalleries(){
         return $this->hasMany(HallGallery::class);
     }
+    public function films(){
+        return $this->hasMany(Film::class)->withPivot('time', 'date', 'price');
+    }
 }

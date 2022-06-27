@@ -1,5 +1,5 @@
 @extends('layouts.user.user')
-@section('content')
+@section('link')
     <style>
         body {
             background: url({{Storage::url($homepage->bg_img) ?? ''}}) no-repeat center top fixed;
@@ -10,6 +10,9 @@
         }
 
     </style>
+
+@endsection
+@section('content')
 
     <div class="container p-0 main-container mt-5 bg-light">
         @if(isset($home_page_galleries))
@@ -56,127 +59,23 @@
         <div class="album py-5 bg-light">
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    @foreach($films_already as $film)
                     <div class="col">
                         <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
+                            <img class="bd-placeholder-img card-img-top" src="{{Storage::url($film->main_img) ?? 'https://img.icons8.com/ios/100/undefined/xlarge-icons.png'}}" style="width: auto !important;" height="225">
                             <div class="card-body">
-                                <p class="card-text">Главный герой</p>
+                                <p class="card-text">{{$film->title}}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Купить билет
-                                        </button>
+                                        <a href="{{route('user.films.show',$film->id)}}" class="btn btn-sm btn-outline-secondary">Купить билет
+                                        </a>
                                     </div>
                                     <small class="text-muted"></small>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <p class="card-text">Главный герой</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Купить билет
-                                        </button>
-                                    </div>
-                                    <small class="text-muted"></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <p class="card-text">Главный герой</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Купить билет
-                                        </button>
-                                    </div>
-                                    <small class="text-muted"></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <p class="card-text">Главный герой</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Купить билет
-                                        </button>
-                                    </div>
-                                    <small class="text-muted"></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <p class="card-text">Главный герой</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Купить билет
-                                        </button>
-                                    </div>
-                                    <small class="text-muted"></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <p class="card-text">Главный герой</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Купить билет
-                                        </button>
-                                    </div>
-                                    <small class="text-muted"></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -189,127 +88,24 @@
         <div class="album py-5 bg-light">
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <p class="card-text">Главный герой</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="">
-                                        {{--                                        <button type="button" class="btn btn-sm btn-outline-secondary"></button>--}}
-                                        <p class="text-small text-success">В кино с 1 июня!</p>
+                    @foreach($films_soon as $film)
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <img style="width: auto !important;" height="225" class="bd-placeholder-img card-img-top" src="{{Storage::url($film->main_img) ?? 'https://img.icons8.com/ios/100/undefined/xlarge-icons.png'}}">
+                                <div class="card-body">
+                                    <p class="card-text">{{$film->title}}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a href="{{route('user.films.show',$film->id)}}" class="btn btn-sm btn-outline-secondary">Купить билет
+                                            </a>
+                                        </div>
+                                        <small class="text-muted"></small>
                                     </div>
-                                    <small class="text-muted"></small>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <p class="card-text">Главный герой</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="">
-                                        {{--                                        <button type="button" class="btn btn-sm btn-outline-secondary"></button>--}}
-                                        <p class="text-small text-success">В кино с 1 июня!</p>
-                                    </div>
-                                    <small class="text-muted"></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <p class="card-text">Главный герой</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="">
-                                        {{--                                        <button type="button" class="btn btn-sm btn-outline-secondary"></button>--}}
-                                        <p class="text-small text-success">В кино с 1 июня!</p>
-                                    </div>
-                                    <small class="text-muted"></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
 
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <p class="card-text">Главный герой</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="">
-                                        {{--                                        <button type="button" class="btn btn-sm btn-outline-secondary"></button>--}}
-                                        <p class="text-small text-success">В кино с 1 июня!</p>
-                                    </div>
-                                    <small class="text-muted"></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <p class="card-text">Главный герой</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="">
-                                        {{--                                        <button type="button" class="btn btn-sm btn-outline-secondary"></button>--}}
-                                        <p class="text-small text-success">В кино с 1 июня!</p>
-                                    </div>
-                                    <small class="text-muted"></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <p class="card-text">Главный герой</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="">
-                                        {{--                                        <button type="button" class="btn btn-sm btn-outline-secondary"></button>--}}
-                                        <p class="text-small text-success">В кино с 1 июня!</p>
-                                    </div>
-                                    <small class="text-muted"></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

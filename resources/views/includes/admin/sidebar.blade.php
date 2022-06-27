@@ -17,6 +17,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{route('admin.schedules.index')}}" class="nav-link w-100 {{strpos($_SERVER['REQUEST_URI'], 'schedules') !== false ? 'active' : ''}}">
+                    <img class="pr-4" src="https://img.icons8.com/ios/30/ffffff/timetable.png"/>
+                    <p>Расписание</p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{route('admin.films.index')}}" class="nav-link w-100 {{strpos($_SERVER['REQUEST_URI'], 'films') !== false ? 'active' : ''}}">
                     <img class="pr-4" src="https://img.icons8.com/ios/30/ffffff/movie--v1.png"/>
                     <p>Фильмы</p>

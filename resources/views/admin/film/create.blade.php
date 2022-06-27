@@ -121,7 +121,7 @@
             </div>
             <div class="col-md-1">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="type_2d" name="type_2d" checked>
+                    <input class="form-check-input" type="checkbox" value="1" id="type_2d" name="type_2d" {{old('type_2d') ? 'checked' : ''}}>
                     <label class="form-check-label" for="type_2d">
                         2D
                     </label>
@@ -129,7 +129,7 @@
             </div>
             <div class="col-md-1">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="type_3d" name="type_3d">
+                    <input class="form-check-input" type="checkbox" value="1" id="type_3d" name="type_3d" {{old('type_3d') ? 'checked' : ''}}>
                     <label class="form-check-label" for="type_3d">
                         3D
                     </label>
@@ -137,7 +137,7 @@
             </div>
             <div class="col-md-1">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="type_imax" name="type_imax">
+                    <input class="form-check-input" type="checkbox" value="1" id="type_imax" name="type_imax" {{old('type_imax') ? 'checked' : ''}}>
                     <label class="form-check-label" for="type_imax">
                         IMAX
                     </label>

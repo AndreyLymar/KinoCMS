@@ -163,7 +163,7 @@
             </div>
             <div class="col-md-1">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="type_3d" name="type_3d" {{old('type_3d') ?? ($film->type_2d === 1 ? 'checked' : '')}}>
+                    <input class="form-check-input" type="checkbox" value="1" id="type_3d" name="type_3d" {{old('type_3d') ?? ($film->type_3d === 1 ? 'checked' : '')}}>
                     <label class="form-check-label" for="type_3d">
                         3D
                     </label>

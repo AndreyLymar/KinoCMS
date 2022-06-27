@@ -14,4 +14,8 @@ class Film extends Model
     public function filmGalleries(){
         return $this->hasMany(FilmGallery::class);
     }
+
+    public function halls(){
+        return $this->hasMany(Hall::class);
+    }
 }
