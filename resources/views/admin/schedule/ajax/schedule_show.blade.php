@@ -1,246 +1,152 @@
-@extends('layouts.admin.admin')
-@section('title','Расписание')
-@section('content')
-    <div class="row mt-5">
-        <div class="col-2">
-            <button type="button" name="addSchedule" id="addSchedule" class="btn-dark btn">
-                Добавить сеанс
-            </button>
-            <button type="button" name="delNewSchedule" id="delNewSchedule" class="btn-dark btn">
-                Убрать
-            </button>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Время</th>
-                <th scope="col">Дата</th>
-                <th scope="col">Кинотеатр</th>
-                <th scope="col">Зал</th>
-                <th scope="col">Фильм</th>
-                <th scope="col">Цена</th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody id="tbody">
-            <tr id="newSchedule">
-
-            </tr>
-            @foreach($schedules as $schedule)
-                <tr>
-{{--                    <form action="" method="post">--}}
-{{--                        @csrf--}}
-{{--                        @method('patch')--}}
-                    <th scope="row">{{$schedule->id}}</th>
-                    <td>
-                        <input type="time" class="form-control @error('time') is-invalid @enderror" id="time"
-                               name="time" value="{{old('time') ?? $schedule->time}}">
-                        @error('time')
-                        <span class="invalid-feedback" role="alert">
-                        {{ $message }}
-                    </span>
-                        @enderror
-                    </td>
-                    <td>
-                        <input type="date" class="form-control @error('date') is-invalid @enderror" id="date"
-                               name="date" value="{{old('date') ?? $schedule->date}}">
-                        @error('date')
-                        <span class="invalid-feedback" role="alert">
-                        {{ $message }}
-                    </span>
-                        @enderror
-                    </td>
-                    <td>
-                        <select class="form-select cinemas @error('cinema') is-invalid @enderror" data-id="{{$schedule->id}}" name="cinema" aria-label="Default select example">
-                            @foreach($cinemas as $cinema)
-                                <option value="{{$cinema->id}}"
-                                        @if(old('cinema'))
-                                            {{ 'selected'}}
-                                    @else
-                                    @foreach($schedule->halls as $hall)
-                                        @if($cinema->id == $hall->cinema_id)
-                                            {{ 'selected'}}
-                                        @endif
-                                    @endforeach
-                                    @endif
-                                    >{{$cinema->title}}</option>
-                            @endforeach
-                        </select>
-                        @error('cinema')
-                        <span class="invalid-feedback" role="alert">
-                        {{ $message }}
-                    </span>
-                        @enderror
-                    </td>
-                    <td>
-                        <select class="form-select @error('hall') is-invalid @enderror" name="hall" aria-label="Default select example">
-                            @foreach($cinema->halls as $hall)
-                                <option value="{{$hall->id}}" {{old('hall') ? 'selected' : ($hall->id == $schedule->hall_id ? 'selected' : '')}}>{{$hall->number}} -Зал</option>
-                            @endforeach
-                        </select>
-                        @error('hall')
-                        <span class="invalid-feedback" role="alert">
-                        {{ $message }}
-                    </span>
-                        @enderror
-                    </td>
-                    <td>
-                        <select class="form-select @error('film') is-invalid @enderror" name="film" aria-label="Default select example">
-                            @foreach($films as $film)
-                                <option value="{{$film->id}}" {{old('film') ? 'selected' : ($film->id == $schedule->film_id ? 'selected' : '')}}>{{$film->title}}</option>
-                            @endforeach
-                        </select>
-                        @error('hall')
-                        <span class="invalid-feedback" role="alert">
-                        {{ $message }}
-                    </span>
-                        @enderror
-                    </td>
-                    <td>
-                        <input type="text" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{old('price') ?? $schedule->price}}">
-                        @error('price')
-                        <span class="invalid-feedback" role="alert">
-                        {{ $message }}
-                    </span>
-                        @enderror
-                    </td>
-                    <td>
-                        <div class="col-4">
-                            <button type="submit" ><img src="https://img.icons8.com/ios/30/000000/save--v1.png"/></button>
-                        </div>
-                    </td>
-{{--                    </form>--}}
-                    <td>
-                        <div class="col-4">
-{{--                            <form action="" method="post">--}}
-{{--                                @csrf--}}
-{{--                                @method('delete')--}}
-                                <button type="submit"><img
-                                        src="https://img.icons8.com/ios/30/000000/delete--v1.png"/></button>
-{{--                            </form>--}}
-                        </div>
-                    </td>
-                </tr>
-
-            @endforeach
-
-            </tbody>
-        </table>
-{{--        {{$users->links()}}--}}
-    </div>
-    <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-
-            $('.cinemas').change(function (){
-                let cinema = $(this).val();
-                let schedule_id = $(this).data('id');
-                console.log(cinema, schedule_id);
-
-                $.ajax({
-                    url:'{{route('admin.schedules.index')}}',
-                    type: 'GET',
-                    data:{
-                        cinema: cinema,
-                        schedule_id: schedule_id,
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success:(data) => {
-                        console.log(data);
-                    }
-                })
-            })
-
-
-
-            $('#addSchedule').on('click', function(){
-                $('#newSchedule').html(`      <form action="" method="post">
-                        @csrf
-                <th scope="row">New</th>
-                    <td>
-                        <input type="time" class="form-control @error('time') is-invalid @enderror" id="time"
-                               name="time" value="">
-                        @error('time')
-                <span class="invalid-feedback" role="alert">
-{{ $message }}
-                </span>
-@enderror
-                </td>
-                <td>
-                    <input type="date" class="form-control @error('date') is-invalid @enderror" id="date"
-                               name="date" value="">
-                        @error('date')
-                <span class="invalid-feedback" role="alert">
-{{ $message }}
-                </span>
-@enderror
-                </td>
-                <td>
-                    <select class="form-select cinemas @error('cinema') is-invalid @enderror" data-id="new" name="cinema" aria-label="Default select example">
-                            @foreach($cinemas as $cinema)
-                <option value="{{$cinema->id}}" {{old('cinema') ? 'selected' : ''}}>{{$cinema->title}}</option>
-                            @endforeach
+<table class="table" id="scheduleTable">
+    <thead >
+    <tr class="table-secondary">
+        <th scope="col">#</th>
+        <th scope="col">Время</th>
+        <th scope="col">Дата</th>
+        <th scope="col">Кинотеатр</th>
+        <th scope="col">Зал</th>
+        <th scope="col">Фильм</th>
+        <th scope="col">Цена</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    <tr id="newSchedule " class="table-secondary">
+        <form class="formSchedule" data-id="New">
+            <th scope="row">New</th>
+            <td>
+                <input type="time" class="form-control time" id="timeNew"
+                       name="timeNew" value="{{old('time')}}">
+                <span class="invalid-feedback" id="timeNewError" role="alert"></span>
+            </td>
+            <td>
+                <input type="date" class="form-control date" id="dateNew"
+                       name="dateNew" value="{{old('date')}}">
+                <span class="invalid-feedback" id="dateNewError" role="alert"></span>
+            </td>
+            <td>
+                <select class="form-select cinema " data-id="New" name="cinemaNew" id="cinemaNew"
+                        aria-label="Default select example">
+                    <option> </option>
+                @foreach($cinemas as $cinema)
+                        <option value="{{$cinema->id}}"
+                        @if(old('cinema'))
+                            {{ 'selected'}}
+                            @endif
+                        >{{$cinema->title}}</option>
+                    @endforeach
                 </select>
-@error('cinema')
-                <span class="invalid-feedback" role="alert">
-{{ $message }}
-                </span>
-@enderror
-                </td>
-                <td>
-                    <select class="form-select @error('hall') is-invalid @enderror" name="hall" aria-label="Default select example">
-                            @foreach($halls as $hall)
-                <option value="{{$hall->id}}" {{old('hall') ? 'selected' : ''}}>{{$hall->number}} -Зал</option>
-                            @endforeach
+                <span class="invalid-feedback" id="cinemaNewError" role="alert"></span>
+            </td>
+            <td>
+                <select class="form-select hall" name="hallNew" id="hallNew" aria-label="Default select example">
+                    <option> </option>
                 </select>
-@error('hall')
-                <span class="invalid-feedback" role="alert">
-{{ $message }}
-                </span>
-@enderror
-                </td>
-                <td>
-                    <select class="form-select @error('film') is-invalid @enderror" name="film" aria-label="Default select example">
-                            @foreach($films as $film)
-                <option value="{{$film->id}}" {{old('film') ? 'selected' : ''}}>{{$film->title}}</option>
-                            @endforeach
+                <span class="invalid-feedback" id="hallNewError" role="alert"></span>
+            </td>
+            <td>
+                <select class="form-select film " name="filmNew" id="filmNew" aria-label="Default select example">
+                    <option> </option>
+                @foreach($films as $film)
+                        <option value="{{$film->id}}" {{old('film') ? 'select' : ''}}>{{$film->title}}</option>
+                    @endforeach
                 </select>
-@error('hall')
-                <span class="invalid-feedback" role="alert">
-{{ $message }}
-                </span>
-@enderror
+                <span class="invalid-feedback" id="filmNewError" role="alert"></span>
+            </td>
+            <td>
+                <input type="text" class="form-control price" id="priceNew" name="priceNew" value="{{old('price')}}">
+                <span class="invalid-feedback" id="priceNewError" role="alert"></span>
+            </td>
+            <td>
+                <div class="col-4">
+                    <button type="button" data-id="New" class="storeUpdateSchedule btn-lg btn-dark">+</button>
+                </div>
+            </td>
+            <td></td>
+        </form>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    @foreach($schedules as $schedule)
+        <tr>
+            <form class="formSchedule" id="formSchedule{{$schedule->id}}" data-id="{{$schedule->id}}">
+                <th scope="row">{{$schedule->id}}</th>
+                <td>
+                    <input type="time" class="form-control time" id="time{{$schedule->id}}"
+                           name="time" value="{{old('time') ?? $schedule->time}}">
+                    <span class="invalid-feedback" id="time{{$schedule->id}}Error" role="alert"></span>
                 </td>
                 <td>
-                    <input type="text" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{old('price')}}">
-                        @error('price')
-                <span class="invalid-feedback" role="alert">
-{{ $message }}
-                </span>
-@enderror
+                    <input type="date" class="form-control date" id="date{{$schedule->id}}"
+                           name="date" value="{{old('date') ?? $schedule->date}}">
+                    <span class="invalid-feedback" id="date{{$schedule->id}}Error" role="alert"></span>
+                </td>
+                <td>
+                    <select class="form-select cinema " data-id="{{$schedule->id}}" name="cinema"
+                            id="cinema{{$schedule->id}}" aria-label="Default select example">
+                        @foreach($cinemas as $cinema)
+                            <option value="{{$cinema->id}}"
+                            @if(old('cinema'))
+                                {{ 'selected'}}
+                                @elseif($cinema->id == $schedule->hall->cinema_id)
+                                {{ 'selected'}}
+                                @endif
+                            >{{$cinema->title}}</option>
+                        @endforeach
+                    </select>
+                    <span class="invalid-feedback" id="cinema{{$schedule->id}}Error" role="alert"></span>
+                </td>
+                <td>
+                    <select class="form-select hall" name="hall" id="hall{{$schedule->id}}"
+                            aria-label="Default select example">
+                        @foreach($halls as $hall)
+                            @if($hall->cinema_id === $schedule->hall->cinema_id)
+                                <option
+                                    value="{{$hall->id}}" {{old('hall') ? 'selected' : ($hall->id == $schedule->hall_id ? 'selected' : '')}}>{{$hall->number}}
+                                    -Зал
+                                </option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <span class="invalid-feedback" id="hall{{$schedule->id}}Error" role="alert"></span>
+
+                </td>
+                <td>
+                    <select class="form-select film " name="film" id="film{{$schedule->id}}"
+                            aria-label="Default select example">
+                        @foreach($films as $film)
+                            <option
+                                value="{{$film->id}}" {{old('film') ? 'selected' : ($film->id == $schedule->film_id ? 'selected' : '')}}>{{$film->title}}</option>
+                        @endforeach
+                    </select>
+                    <span class="invalid-feedback" id="film{{$schedule->id}}Error" role="alert"></span>
+                </td>
+                <td>
+                    <input type="text" class="form-control price" id="price{{$schedule->id}}" name="price"
+                           value="{{old('price') ?? $schedule->price}}">
+                    <span class="invalid-feedback" id="price{{$schedule->id}}Error" role="alert"></span>
+
                 </td>
                 <td>
                     <div class="col-4">
-                        <button type="submit" ><img src="https://img.icons8.com/ios/30/000000/save--v1.png"/></button>
+                        <button type="button" class="storeUpdateSchedule" data-id="{{$schedule->id}}"><img
+                                src="https://img.icons8.com/ios/30/000000/save--v1.png"/></button>
                     </div>
                 </td>
-                </form>
                 <td>
+                    <div class="col-4">
+                        <button type="button" id="deleteSchedule" data-id="{{$schedule->id}}" class="deleteSchedule">
+                            <img
+                                src="https://img.icons8.com/ios/30/000000/delete--v1.png"/></button>
+                    </div>
+                </td>
+            </form>
+        </tr>
+    @endforeach
 
-                </td>`);
-            });
-        });
-        $(document).ready(function(){
-            $('#delNewSchedule').on('click',function (){
-                $('#newSchedule').html('');
-            });
-        })
-    </script>
-@endsection
+    </tbody>
+</table>
+
+{{$schedules->links()}}
 
 

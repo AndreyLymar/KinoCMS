@@ -33,7 +33,10 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
 
-{{--    CSRF token   --}}
+    <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+
+
+    {{--    CSRF token   --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('link')
     <style>
@@ -156,7 +159,7 @@
         $('.number_card').inputmask('9999-9999-9999-9999')
     });
 </script>
-
+@stack('script_ajax')
 @yield('script')
 
 </body>

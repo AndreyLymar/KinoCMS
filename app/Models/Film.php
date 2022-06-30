@@ -18,4 +18,8 @@ class Film extends Model
     public function halls(){
         return $this->hasMany(Hall::class);
     }
+
+    public function schedules(){
+        return $this->hasMany(Schedule::class);
+    }
 }
