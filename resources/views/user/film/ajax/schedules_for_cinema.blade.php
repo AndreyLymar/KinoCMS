@@ -27,7 +27,7 @@
                 <div>{{date("H:i", strtotime($schedule->time))}}</div>
             </div>
             <div class="col fs-5  text-center" style="border: 1px solid grey;">
-                <div>3D</div>
+                <div>{{$schedule->type}}</div>
             </div>
         </div>
         <div class="row">

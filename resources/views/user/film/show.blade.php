@@ -71,7 +71,7 @@
             <div class="col-4">
                 <img width="80%" src="{{Storage::url($film->main_img) ? Storage::url($film->main_img) : ''}}">
             </div>
-            <div class="col-8">
+            <div class="col-7">
                 <div class="row w-50">
                     <a class="btn btn-dark">Купить билет</a>
                 </div>
@@ -119,21 +119,20 @@
     <script>
         $(document).ready(function(){
             $(document).on('change','#cinema', function(){
-              let select_cinema = $('#cinema').val();
-
-              console.log(cinema);
+              let cinema = $('#cinema').val();
 
               $.ajax({
                   url: '{{route('user.films.show', $film->id)}}',
                   type: 'GET',
                   data: {
-                      select_cinema: select_cinema,
+                      cinema: cinema,
                   },
                   headers: {
                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                   },
                   success: (data) =>{
                         console.log(data);
+                        $('#schedules_film').html(data);
                   }
               })
             })
