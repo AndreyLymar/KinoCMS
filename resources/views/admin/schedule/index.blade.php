@@ -12,6 +12,7 @@
                 <th scope="col">Кинотеатр</th>
                 <th scope="col">Зал</th>
                 <th scope="col">Фильм</th>
+                <th scope="col">Тип</th>
                 <th scope="col">Цена от</th>
                 <th scope="col">Цена до</th>
             </tr>
@@ -40,11 +41,21 @@
                         </select>
                     </td>
                     <td>
-                        <select class="form-select film " name="filmFilter" id="filmFilter" aria-label="Default select example">
+                        <select class="form-select film " name="filmFilter" id="filmFilter" data-id="Filter" aria-label="Default select example">
                             <option></option>
                         @foreach($films as $film)
                                 <option value="{{$film->id}}" {{old('film') ? 'select' : ''}}>{{$film->title}}</option>
                             @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-select type " name="typeFilter" id="typeFilter"
+                                aria-label="Default select example">
+                            <option></option>
+                            <option value="2d">2D</option>
+                            <option value="3d">3D</option>
+                            <option value="imax">Imax</option>
+
                         </select>
                     </td>
                     <td>
@@ -84,6 +95,7 @@
                 let priceBefore = $('#priceFilterBefore').val();
                 let priceFrom = $('#priceFilterFrom').val();
                 let film = $('#filmFilter').val();
+                let type = $('#typeFilter').val();
 
                 $.ajax({
                     url: '{{route('admin.schedules.filter')}}',
@@ -96,7 +108,8 @@
                         hall: hall,
                         priceBefore: priceBefore,
                         priceFrom: priceFrom,
-                        film: film
+                        film: film,
+                        type: type
                     },
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -134,6 +147,26 @@
                 })
             })
 
+            // change film
+            $(document).on('change','.film', function () {
+                let film = $(this).val();
+                let schedule_id = $(this).data('id');
+
+                $.ajax({
+                    url: '{{route('admin.schedules.index')}}',
+                    type: 'GET',
+                    data: {
+                        film: film,
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: (data) => {
+                        $('#type' + schedule_id).html(data);
+                    }
+                })
+            })
+
             // del cinema
             $(document).on('click','.deleteSchedule', function () {
                 let schedule_id = $(this).data('id');
@@ -167,6 +200,7 @@
                 let hall = $('#hall' + schedule_id).val();
                 let price = $('#price' + schedule_id).val();
                 let film = $('#film' + schedule_id).val();
+                let type = $('#type' + schedule_id).val();
                 let page = $('.pagination').find('li.active span').text();
 
                 $.ajax({
@@ -179,20 +213,21 @@
                         time: time,
                         hall: hall,
                         price: price,
-                        film: film
+                        film: film,
+                        type: type
                     },
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: (data) => {
                         getMoreSchedulesAndFilter(page);
-                        filter();
                         $('#dateNew').val('');
                         $('#timeNew').val('');
                         $('#cinemaNew').val(0);
                         $('#hallNew').val(0);
                         $('#priceNew').val('');
                         $('#filmNew').val(0);
+                        $('#typeNew').val(0);
                     },
                     error: (data) => {
                         if (data.responseJSON.errors.time ) {
@@ -230,8 +265,15 @@
                             $('#hall' + schedule_id).removeClass('is-invalid')
                             $('#hall' + schedule_id + 'Error').text('')
                         }
+                        if (data.responseJSON.errors.type ) {
+                            $('#type' + schedule_id).addClass('is-invalid')
+                            $('#type' + schedule_id + 'Error').text(data.responseJSON.errors.type)
+                        } else{
+                            $('#type' + schedule_id).removeClass('is-invalid')
+                            $('#type' + schedule_id + 'Error').text('')
+                        }
                         if (data.responseJSON.errors.price ) {
-                            $('#price' + schСоздание страницы расписания в админке + фильтры + пагинация + ajaxedule_id).addClass('is-invalid')
+                            $('#price' + schedule_id).addClass('is-invalid')
                             $('#price' + schedule_id + 'Error').text(data.responseJSON.errors.price)
                         } else{
                             $('#price' + schedule_id).removeClass('is-invalid')

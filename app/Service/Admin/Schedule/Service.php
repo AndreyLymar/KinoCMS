@@ -6,9 +6,6 @@ use App\Models\Cinema;
 use App\Models\Film;
 use App\Models\Hall;
 use App\Models\Schedule;
-use App\Models\SpecialOffer;
-use App\Models\SpecialOfferGallery;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class Service
@@ -26,6 +23,10 @@ class Service
         $halls = Hall::all();
 
         if ($request->ajax()) {
+            if(isset($request->film)){
+                $film_select = Film::find($request->film);
+                return view('admin.schedule.ajax.new_film_type', compact('film_select'))->render();
+            }
             if ($request->cinema == 0) {
                 return null;
             } else {
@@ -45,6 +46,7 @@ class Service
             'hall' => 'required|int',
             'date' => 'required|date',
             'time' => 'required',
+            'type' => 'required',
         ]);
         $validated = $validator->validated();
 
@@ -55,6 +57,7 @@ class Service
             'hall_id' => $request->hall,
             'date' => $request->date,
             'time' => $request->time,
+            'type' => $request->type,
         ]);
         if ($request->ajax()) {
             return $validated;
@@ -81,6 +84,9 @@ class Service
             }
             if (!empty($request->priceFrom)) {
                 $data[] = ['price', '>=', $request->priceFrom];
+            }
+            if (!empty($request->type)) {
+                $data[] = ['type', $request->type];
             }
 
             $schedules = !empty($data) ? Schedule::where($data)->latest()->paginate(2) : Schedule::latest()->paginate(2);

@@ -8,6 +8,12 @@
     <link href="{{asset('css/headers.css')}}" rel="stylesheet">
     <link href="{{asset('css/carousel.css')}}" rel="stylesheet">
 
+{{--    CSRF token    --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+
+
     @yield('link')
     <style>
         .bd-placeholder-img {
@@ -76,7 +82,6 @@
 @yield('content')
 
 <script src="{{asset('assets/dist/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
 @yield('script')
 
 @include('includes.user.footer')

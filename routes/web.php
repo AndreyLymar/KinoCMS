@@ -57,10 +57,6 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => 'admin'],
         Route::get('/schedules/delete', 'ScheduleController@delete')->name('admin.schedules.delete');
         Route::get('/schedules/get_more_schedules', 'ScheduleController@get_more_schedules')->name('admin.schedules.get_more_schedules');
         Route::get('/schedules/filter', 'ScheduleController@filter')->name('admin.schedules.filter');
-//        Route::get('/films/create/{status}', 'FilmController@create')->name('admin.films.create');
-//        Route::post('/schedules/store_or_update', 'ScheduleController@store_or_update')->name('admin.schedules.store_or_update');
-//        Route::post('/schedules/store', 'ScheduleController@store')->name('admin.schedules.store');
-//        Route::delete('/films/{film}', 'FilmController@destroy')->name('admin.films.destroy');
 
     });
     Route::group(['namespace'=>'Film'], function(){

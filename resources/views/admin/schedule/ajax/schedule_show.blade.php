@@ -1,5 +1,5 @@
 <table class="table" id="scheduleTable">
-    <thead >
+    <thead>
     <tr class="table-secondary">
         <th scope="col">#</th>
         <th scope="col">Время</th>
@@ -7,6 +7,7 @@
         <th scope="col">Кинотеатр</th>
         <th scope="col">Зал</th>
         <th scope="col">Фильм</th>
+        <th scope="col">Тип</th>
         <th scope="col">Цена</th>
         <th scope="col"></th>
         <th scope="col"></th>
@@ -27,8 +28,8 @@
             <td>
                 <select class="form-select cinema " data-id="New" name="cinemaNew" id="cinemaNew"
                         aria-label="Default select example">
-                    <option> </option>
-                @foreach($cinemas as $cinema)
+                    <option></option>
+                    @foreach($cinemas as $cinema)
                         <option value="{{$cinema->id}}"
                         @if(old('cinema'))
                             {{ 'selected'}}
@@ -40,18 +41,24 @@
             </td>
             <td>
                 <select class="form-select hall" name="hallNew" id="hallNew" aria-label="Default select example">
-                    <option> </option>
+                    <option></option>
                 </select>
                 <span class="invalid-feedback" id="hallNewError" role="alert"></span>
             </td>
             <td>
-                <select class="form-select film " name="filmNew" id="filmNew" aria-label="Default select example">
-                    <option> </option>
-                @foreach($films as $film)
+                <select class="form-select film " name="filmNew" id="filmNew" data-id="New" aria-label="Default select example">
+                    <option></option>
+                    @foreach($films as $film)
                         <option value="{{$film->id}}" {{old('film') ? 'select' : ''}}>{{$film->title}}</option>
                     @endforeach
                 </select>
                 <span class="invalid-feedback" id="filmNewError" role="alert"></span>
+            </td>
+            <td>
+                <select class="form-select type" name="type" id="typeNew"
+                        aria-label="Default select example">
+                </select>
+                <span class="invalid-feedback" id="typeNewError" role="alert"></span>
             </td>
             <td>
                 <input type="text" class="form-control price" id="priceNew" name="priceNew" value="{{old('price')}}">
@@ -112,14 +119,30 @@
 
                 </td>
                 <td>
-                    <select class="form-select film " name="film" id="film{{$schedule->id}}"
+                    <select class="form-select film " name="film" id="film{{$schedule->id}}" data-id="{{$schedule->id}}"
                             aria-label="Default select example">
                         @foreach($films as $film)
                             <option
                                 value="{{$film->id}}" {{old('film') ? 'selected' : ($film->id == $schedule->film_id ? 'selected' : '')}}>{{$film->title}}</option>
                         @endforeach
                     </select>
-                    <span class="invalid-feedback" id="film{{$schedule->id}}Error" role="alert"></span>
+                    <span class="invalid-feedback" id="film{{$schedule->id}}Error"  role="alert"></span>
+                </td>
+                <td>
+                    <select class="form-select type " name="type" id="type{{$schedule->id}}"
+                            aria-label="Default select example">
+                        <option></option>
+                        @if($schedule->film->type_2d == 1)
+                            <option value="2d" {{$schedule->type == '2d' ? 'selected' : ''}}>2D</option>
+                        @endif
+                        @if($schedule->film->type_3d == 1)
+                            <option value="3d" {{$schedule->type == '3d' ? 'selected' : ''}}>3D</option>
+                        @endif
+                        @if($schedule->film->type_imax == 1)
+                            <option value="imax" {{$schedule->type == 'imax' ? 'selected' : ''}}>Imax</option>
+                        @endif
+                    </select>
+                    <span class="invalid-feedback" id="type{{$schedule->id}}Error" role="alert"></span>
                 </td>
                 <td>
                     <input type="text" class="form-control price" id="price{{$schedule->id}}" name="price"

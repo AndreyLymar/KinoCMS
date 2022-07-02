@@ -24,10 +24,12 @@
                 <h4 class="fw-light text-dark">Расписание сеансов кинотеатра:</h4>
             </div>
             <div class="col-5">
-                <select class="form-select w-75" aria-label="Default select example">
+
+                <select class="form-select w-75 cinema" id="cinema" aria-label="Default select example">
                     @foreach($cinemas as $cinema)
                         <option value="{{$cinema->id}}"
-                                name="{{$cinema->id}}" {{old('cinema->id') ? 'select' : ''}}>{{$cinema->title}}</option>
+                                name="{{$cinema->id}}" {{$cinema->id === $select_cinema->id ? 'select' : ''}}>{{$cinema->title}}
+                        </option>
                     @endforeach
                 </select>
             </div>
@@ -59,109 +61,9 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-5 mb-4">
-            <div class="col-2">
-                <div class="row text-center fs-4" style="border: 1px solid grey;">
-                    <div><b>18 Чт</b></div>
-                </div>
-                <div class="row text-center fs-5" style="border: 1px solid grey;">
-                    <div>Августа</div>
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="row text-center fs-4" style="border: 1px solid grey;">
-                    <div><b>18 Чт</b></div>
-                </div>
-                <div class="row text-center fs-5" style="border: 1px solid grey;">
-                    <div>Августа</div>
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="row text-center fs-4" style="border: 1px solid grey;">
-                    <div><b>18 Чт</b></div>
-                </div>
-                <div class="row text-center fs-5" style="border: 1px solid grey;">
-                    <div>Августа</div>
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="row text-center fs-4" style="border: 1px solid grey;">
-                    <div><b>18 Чт</b></div>
-                </div>
-                <div class="row text-center fs-5" style="border: 1px solid grey;">
-                    <div>Августа</div>
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="row text-center fs-4" style="border: 1px solid grey;">
-                    <div><b>18 Чт</b></div>
-                </div>
-                <div class="row text-center fs-5" style="border: 1px solid grey;">
-                    <div>Августа</div>
-                </div>
-            </div>
-        </div>
 
-        <div class="row mt-5">
-            <h4 class="fw-light text-dark">Имя выбранного кинотеатра:</h4>
-        </div>
-
-        <div class="row mt-5">
-
-            <div class="col-2 m-2">
-                <div class="row">
-                    <div class="col fs-5 text-center" style="border: 1px solid grey;">
-                        <div>16:40</div>
-                    </div>
-                    <div class="col fs-5  text-center" style="border: 1px solid grey;">
-                        <div>3D</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col fs-5 text-center" style="border: 1px solid grey;">
-                        <div>Зал 1</div>
-                    </div>
-                    <div class="col fs-5  text-center" style="border: 1px solid grey;">
-                        <div>23/56/120</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2 m-2">
-                <div class="row">
-                    <div class="col fs-5 text-center" style="border: 1px solid grey;">
-                        <div>16:40</div>
-                    </div>
-                    <div class="col fs-5  text-center" style="border: 1px solid grey;">
-                        <div>3D</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col fs-5 text-center" style="border: 1px solid grey;">
-                        <div>Зал 1</div>
-                    </div>
-                    <div class="col fs-5  text-center" style="border: 1px solid grey;">
-                        <div>23/56/120</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-2 m-2">
-                <div class="row">
-                    <div class="col fs-5 text-center" style="border: 1px solid grey;">
-                        <div>16:40</div>
-                    </div>
-                    <div class="col fs-5  text-center" style="border: 1px solid grey;">
-                        <div>3D</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col fs-5 text-center" style="border: 1px solid grey;">
-                        <div>Зал 1</div>
-                    </div>
-                    <div class="col fs-5  text-center" style="border: 1px solid grey;">
-                        <div>23/56/120</div>
-                    </div>
-                </div>
+        <div id="schedules_film">
+                @include('user.film.ajax.schedules_for_cinema')
             </div>
         </div>
 
@@ -214,5 +116,27 @@
         </div>
     </div>
 
-    </div>
+    <script>
+        $(document).ready(function(){
+            $(document).on('change','#cinema', function(){
+              let select_cinema = $('#cinema').val();
+
+              console.log(cinema);
+
+              $.ajax({
+                  url: '{{route('user.films.show', $film->id)}}',
+                  type: 'GET',
+                  data: {
+                      select_cinema: select_cinema,
+                  },
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                  success: (data) =>{
+                        console.log(data);
+                  }
+              })
+            })
+        })
+    </script>
 @endsection
