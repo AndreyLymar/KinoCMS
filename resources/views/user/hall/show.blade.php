@@ -21,11 +21,16 @@
                 <div class="row mt-5">
                     <div class="col-md-6 m-5">
                         <p>Сеансы:</p>
-{{--                        @foreach($cinema->halls as $hall)--}}
-{{--                            <div class="row">--}}
-{{--                                <a href="?{{$hall->id}}" class="p-2 text-dark" style="border:1px solid grey; {{strpos($_SERVER['REQUEST_URI'], '/cinemas/' . $cinema->id . '?' . $hall->id) !== false ? 'background-color: #eeeeee;' : ''}}">{{$hall->number}}-й зал</a>--}}
-{{--                            </div>--}}
-{{--                        @endforeach--}}
+                        @foreach($hall->schedules as $key => $schedule)
+                            @if($key <= 6 )
+                            <div class="row">
+                                <a href="" class="p-2 text-dark" style="border:1px solid grey;">Сеанс {{ ++$key }}</a>
+                            </div>
+                            @endif
+                        @endforeach
+                        <div class="row mt-4">
+                         <a class="btn btn-dark">Расписание всех сеансов</a>
+                        </div>
                     </div>
                 </div>
             </div>

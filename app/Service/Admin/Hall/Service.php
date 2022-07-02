@@ -36,7 +36,7 @@ class Service
         if ($data['hall_img'] !== null) {
             Storage::disk('public')->delete($hall_img);
             $data['hall_img'] = Storage::disk('public')->put('/images', $data['hall_img']);
-        } elseif (isset($hall_img_old)) {
+        } elseif(isset($hall_img_old)) {
             unset($data['hall_img']);
         } else {
             Storage::disk('public')->delete($hall_img);

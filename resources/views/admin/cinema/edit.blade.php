@@ -33,9 +33,9 @@
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <label for="terms" class="form-label">Условия:</label>
-                <textarea class="form-control @error('terms') is-invalid @enderror"
+                <textarea class="form-control @error('terms') is-invalid @enderror" id="summernote"
                           name="terms">{{old('terms') ?? $cinema->terms}}</textarea>
                 @error('terms')
                 <span class="invalid-feedback" role="alert">

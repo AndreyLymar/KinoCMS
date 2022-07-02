@@ -62,12 +62,10 @@
                 <div class="row">
                     <div class="row mb-4">
                         <h4 class="fw-light text-center mb-5 mt-5">Условия</h4>
-
                     </div>
-                    <div class="row">
-                        <p class="p-3" style="border: 1px solid gray; background-color: #eeeeee">
-                            {{$cinema->terms}}
-                        </p>
+
+                    <div class="row" style="border: 1px solid gray; background-color: #eeeeee">
+                        {!!$cinema->terms!!}
                     </div>
                 </div>
                 @if($cinema->cinemaGalleries)
