@@ -10,4 +10,11 @@ class Seat extends Model
     use HasFactory;
     protected $table = 'seats';
     protected $guarded = false;
+
+    public function schedule(){
+        return $this->belongsTo(Schedule::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

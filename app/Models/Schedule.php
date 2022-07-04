@@ -18,4 +18,8 @@ class Schedule extends Model
     public function hall(){
         return $this->belongsTo(Hall::class);
     }
+
+    public function Seats(){
+        return $this->hasMany(Seat::class);
+    }
 }

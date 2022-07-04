@@ -3,7 +3,6 @@
 @section('content')
 
     <div class="row mt-5" id="SchedulesFilter">
-
         <table class="w-50">
             <thead>
             <tr>

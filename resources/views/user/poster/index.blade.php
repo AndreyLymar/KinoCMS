@@ -3,7 +3,7 @@
 
     <div class="container p-0 main-container mt-5">
         <div class="row">
-            <h2 class="fw-light text-center mt-5">Смотрите </h2>
+            <h2 class="fw-light text-center mt-5">Смотрите</h2>
         </div>
         <div class="album py-5">
             <div class="container">
@@ -16,8 +16,7 @@
                                 <p class="card-text">{{$film->title}}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a href="{{route('user.films.show',$film->id)}}" class="btn btn-sm btn-outline-secondary">Купить билет
-                                        </a>
+                                        <a href="{{route('user.films.show',$film->id)}}" class="btn btn-sm btn-outline-secondary">{{$film->status == 'soon' ? 'Посмотреть' : 'Купить билет'}}</a>
                                     </div>
                                     <small class="text-muted"></small>
                                 </div>

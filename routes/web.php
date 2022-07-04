@@ -31,6 +31,8 @@ Route::group(['namespace'=>'User'], function(){
         Route::get('/news', 'NewsController@index')->name('user.news.index');
         Route::get('/news/{news}', 'NewsController@show')->name('user.news.show');
         Route::get('/films/{film}', 'FilmController@show')->name('user.films.show');
+        Route::get('/schedules', 'ScheduleController@index')->name('user.schedules.index');
+        Route::get('/schedules/{schedule}', 'ScheduleController@show')->name('user.schedules.show');
 });
 
 Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => 'admin'], function(){

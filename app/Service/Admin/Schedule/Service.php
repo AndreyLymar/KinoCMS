@@ -2,10 +2,14 @@
 
 namespace App\Service\Admin\Schedule;
 
+use App\Jobs\CreateSeatsToSchedule;
 use App\Models\Cinema;
 use App\Models\Film;
 use App\Models\Hall;
 use App\Models\Schedule;
+use App\Models\Seat;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class Service
@@ -59,6 +63,13 @@ class Service
             'time' => $request->time,
             'type' => $request->type,
         ]);
+
+        if ($schedule_id === null) {
+            $schedules = Schedule::all();
+            $schedule = $schedules->last();
+
+            dispatch(new CreateSeatsToSchedule($schedule));
+        }
         if ($request->ajax()) {
             return $validated;
         }
