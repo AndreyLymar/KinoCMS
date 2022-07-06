@@ -29,15 +29,30 @@
                                     src="https://img.icons8.com/ios/30/000000/edit--v1.png"/></a>
                         </div>
                         @if($home !== null)
-{{--                            <div class="col-4">--}}
-{{--                                <form action="{{route('admin.pages.main.destroy',$home->id)}}" method="post">--}}
-{{--                                    @csrf--}}
-{{--                                    @method('delete')--}}
-{{--                                    <button type="submit"><img--}}
-{{--                                            src="https://img.icons8.com/ios/30/000000/delete--v1.png"/></button>--}}
-{{--                                </form>--}}
-{{--                            </div>--}}
+                            {{--                            <div class="col-4">--}}
+                            {{--                                <form action="{{route('admin.pages.main.destroy',$home->id)}}" method="post">--}}
+                            {{--                                    @csrf--}}
+                            {{--                                    @method('delete')--}}
+                            {{--                                    <button type="submit"><img--}}
+                            {{--                                            src="https://img.icons8.com/ios/30/000000/delete--v1.png"/></button>--}}
+                            {{--                                </form>--}}
+                            {{--                            </div>--}}
                         @endif
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Контакты</td>
+                <td></td>
+                <td></td>
+                <td>
+                    <div class="row">
+                        <div class="col-4">
+                            <a href="{{route('admin.pages.contacts.index')}}"
+                               class=""><img
+                                    src="https://img.icons8.com/ios/30/000000/edit--v1.png"/></a>
+
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -47,7 +62,8 @@
                     <td>{{$page->created_at}}</td>
                     <td>
                         <div class=" ml-2 form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch"  disabled {{$page->status === 1 ? 'checked' : ''}}>
+                            <input class="form-check-input" type="checkbox" role="switch"
+                                   disabled {{$page->status === 1 ? 'checked' : ''}}>
                         </div>
                     </td>
                     <td>
@@ -57,14 +73,14 @@
                                         src="https://img.icons8.com/ios/30/000000/edit--v1.png"/></a>
                             </div>
                             @if($i>=6)
-                            <div class="col-4">
-                                <form action="{{route('admin.pages.destroy',$page->id)}}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit"><img
-                                            src="https://img.icons8.com/ios/30/000000/delete--v1.png"/></button>
-                                </form>
-                            </div>
+                                <div class="col-4">
+                                    <form action="{{route('admin.pages.destroy',$page->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit"><img
+                                                src="https://img.icons8.com/ios/30/000000/delete--v1.png"/></button>
+                                    </form>
+                                </div>
                             @endif
                         </div>
                     </td>

@@ -17,7 +17,7 @@ class CreateContactPagesTable extends Migration
             $table->id();
             $table->string('address');
             $table->string('coordinates');
-            $table->string('logo_img');
+            $table->string('logo_img')->nullable();
             $table->boolean('status')->default(0);
 
             $table->string('seo_url')->nullable();

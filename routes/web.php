@@ -123,6 +123,11 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => 'admin'],
         Route::get('/pages/main/edit/{home}', 'MainController@edit')->name('admin.pages.main.edit');
         Route::patch('/pages/main/{home}', 'MainController@update')->name('admin.pages.main.update');
         Route::delete('/pages/main/{home}', 'MainController@destroy')->name('admin.pages.main.destroy');
+
+        Route::get('/pages/contacts', 'ContactController@index')->name('admin.pages.contacts.index');
+        Route::patch('/pages/contacts/{contact}', 'ContactController@update')->name('admin.pages.contacts.update');
+        Route::post('/pages/contacts', 'ContactController@store')->name('admin.pages.contacts.store');
+        Route::delete('/pages/contacts/{contact}', 'ContactController@destroy')->name('admin.pages.contacts.destroy');
     });
     Route::group(['namespace'=>'Film'], function(){
         Route::get('/films', 'FilmController@index')->name('admin.films.index');

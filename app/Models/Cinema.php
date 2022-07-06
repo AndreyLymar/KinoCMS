@@ -17,4 +17,8 @@ class Cinema extends Model
     public function cinemaGalleries(){
         return $this->hasMany(CinemaGallery::class);
     }
+
+    public function contact_page(){
+        return $this->belongsTo(ContactPage::class);
+    }
 }

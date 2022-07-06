@@ -25,7 +25,8 @@
                 <td>{{$schedule->hall->number}} зал</td>
                 <td>{{$schedule->price}}</td>
                 <td>
-                    <a href="{{route('user.schedules.show', $schedule->id)}}" class="btn btn-dark btn-sm">Бронировать</a>
+                    <a href="{{route('user.schedules.show', $schedule->id)}}"
+                       class="btn btn-dark btn-sm">Бронировать</a>
                 </td>
             </tr>
         @endforeach
