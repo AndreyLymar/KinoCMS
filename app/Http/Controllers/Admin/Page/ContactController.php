@@ -7,17 +7,18 @@ use App\Http\Requests\Admin\Pages\Contact\StoreRequest;
 use App\Http\Requests\Admin\Pages\Contact\UpdateRequest;
 use App\Models\Cinema;
 use App\Models\ContactPage;
+use App\Service\Admin\Page\Contact\Service;
 use Illuminate\Support\Facades\Storage;
 
 
 class ContactController extends Controller
 {
-//    public $service;
-//
-//    public function __construct(Service $service)
-//    {
-//        $this->service = $service;
-//    }
+    public $service;
+
+    public function __construct(Service $service)
+    {
+        $this->service = $service;
+    }
 
     public function index()
     {
@@ -29,12 +30,8 @@ class ContactController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
-        $data['logo_img'] = $data['logo_img'] ?? null;
 
-        if ($data['logo_img'] !== null) {
-            $data['logo_img'] = Storage::disk('public')->put('/images', $data['logo_img']);
-        }
-        ContactPage::create($data);
+        $this->service->store($data);
 
         return redirect()->route('admin.pages.contacts.index');
     }
@@ -43,21 +40,8 @@ class ContactController extends Controller
     {
 
         $data = $request->validated();
-        $data['logo_img'] = $data['logo_img'] ?? null;
 
-        $logo_img_old = $data['logo_img_old'] ?? null;
-        unset($data['logo_img_old']);
-
-        if ($data['logo_img'] !== null) {
-            Storage::disk('public')->delete(  $data['logo_img']);
-            $data['logo_img'] = Storage::disk('public')->put('/images', $data['logo_img']);
-        } elseif ($logo_img_old !== null) {
-            unset($data['logo_img']);
-        } else {
-            Storage::disk('public')->delete(  $data['logo_img']);
-        }
-
-        $contact->update($data);
+        $this->service->update($contact, $data);
 
         return redirect()->route('admin.pages.contacts.index');
     }
@@ -66,10 +50,7 @@ class ContactController extends Controller
     public function destroy(ContactPage $contact)
     {
 
-        if (isset($contact->logo_img)){
-            Storage::disk('public')->delete($contact->logo_img);
-        }
-        $contact->delete();
+      $this->service->destroy($contact);
         return redirect()->route('admin.pages.index');
 
     }

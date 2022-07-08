@@ -39,7 +39,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="row mt-5">
-                            <a href="" class="btn-dark btn w-50">Расписание сеансов</a>
+                            <a href="{{route('user.schedules.index')}}" class="btn-dark btn w-50">Расписание сеансов</a>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-1">

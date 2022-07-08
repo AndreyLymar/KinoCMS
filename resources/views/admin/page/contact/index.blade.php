@@ -35,12 +35,17 @@
                 @enderror
             </div>
             <div class="row mt-5 w-25 ml-3">
-                <label for="coordinates" class="form-label">Координаты:</label>
-                <input id="coordinates" class="form-control  @error('coordinates') is-invalid @enderror" name="coordinates"
-                       value="{{old('address') ?? ''}}">
-                @error('coordinates')
-                <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                @enderror
+                <div class="col-6">
+                    <label for="coordinates" class="form-label">Координаты:</label>
+                    <input id="coordinates" class="form-control  @error('coordinates') is-invalid @enderror" name="coordinates"
+                           value="{{old('coordinates') ?? ''}}">
+                    @error('coordinates')
+                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="col-1 m-4">
+                    <a href="https://www.google.com/maps" target="_blank" class="btn btn-outline-dark ">Карта</a>
+                </div>
             </div>
             {{--            Лого          --}}
             <div class="row mt-5"><b>Лого</b></div>
@@ -175,13 +180,18 @@
                         @enderror
                     </div>
                     <div class="row mt-5 w-25 ml-3">
-                        <label for="coordinates" class="form-label">Координаты:</label>
-                        <input id="coordinates" class="form-control  @error('coordinates') is-invalid @enderror"
-                               name="coordinates"
-                               value="{{old('address') ? old('address') : ($contact_page->address ? $contact_page->address : '')}}">
-                        @error('coordinates')
-                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                        @enderror
+                        <div class="col-6">
+                            <label for="coordinates" class="form-label">Координаты:</label>
+                            <input id="coordinates" class="form-control  @error('coordinates') is-invalid @enderror"
+                                   name="coordinates"
+                                   value="{{old('coordinates') ? old('coordinates') : ($contact_page->coordinates ? $contact_page->coordinates : '')}}">
+                            @error('coordinates')
+                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-1 m-4">
+                            <a href="https://www.google.com/maps" target="_blank" class="btn btn-outline-dark ">Карта</a>
+                        </div>
                     </div>
 
                     {{--              Лого          --}}

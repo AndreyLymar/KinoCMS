@@ -21,6 +21,8 @@
                                 @foreach($pages as $page)
                                         <a class="dropdown-item" href="{{route('user.pages.show',$page->id)}}">{{$page->title}}</a>
                                     @endforeach
+                                    <a class="dropdown-item" href="{{route('user.contacts.index')}}">Контакты</a>
+
                                 </div>
                             </li>
                     </ul>

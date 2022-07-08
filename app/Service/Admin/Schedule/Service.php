@@ -23,7 +23,7 @@ class Service
         }
         $films = Film::where('status', 'already')->get();
         $cinemas = Cinema::all();
-        $schedules = Schedule::latest()->paginate(2);
+        $schedules = Schedule::latest()->paginate(5);
         $halls = Hall::all();
 
         if ($request->ajax()) {
@@ -100,7 +100,7 @@ class Service
                 $data[] = ['type', $request->type];
             }
 
-            $schedules = !empty($data) ? Schedule::where($data)->latest()->paginate(2) : Schedule::latest()->paginate(2);
+            $schedules = !empty($data) ? Schedule::where($data)->latest()->paginate(5) : Schedule::latest()->paginate(5);
 
             if (!empty($request->cinema)) {
 
@@ -109,7 +109,7 @@ class Service
                 foreach ($cinema->halls as $hall) {
                     $dataCinema[] = $hall->id;
                 }
-                $schedules = !empty($data) ? Schedule::where($data)->whereIn('hall_id', $dataCinema)->latest()->paginate(2) : Schedule::whereIn('hall_id', $dataCinema)->latest()->paginate(2);
+                $schedules = !empty($data) ? Schedule::where($data)->whereIn('hall_id', $dataCinema)->latest()->paginate(5) : Schedule::whereIn('hall_id', $dataCinema)->latest()->paginate(5);
 
             }
             $films = Film::where('status', 'already')->get();

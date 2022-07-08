@@ -24,12 +24,12 @@
                         @foreach($hall->schedules as $key => $schedule)
                             @if($key <= 6 )
                             <div class="row">
-                                <a href="" class="p-2 text-dark" style="border:1px solid grey;">Сеанс {{ ++$key }}</a>
+                                <a href="{{route('user.schedules.show', $schedule->id)}}" class="p-2 text-dark" style="border:1px solid grey;">Сеанс {{ ++$key }}</a>
                             </div>
                             @endif
                         @endforeach
                         <div class="row mt-4">
-                         <a class="btn btn-dark">Расписание всех сеансов</a>
+                         <a class="btn btn-dark" href="{{route('user.schedules.index')}}">Расписание всех сеансов</a>
                         </div>
                     </div>
                 </div>

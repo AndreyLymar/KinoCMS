@@ -13,6 +13,6 @@
 @endfor
 <script>
     $(document).ready(function () {
-        $('#allReservedSeats').html(`<p class="fw-light text-dark mt-2">Забронированные места: <b> @foreach(Auth::user()->seats as $seat) @if($seat->schedule->id === $schedule->id) ряд:{{$seat->row}} место:{{$seat->seat}}, <br> @endif @endforeach</b></p>`);
+        $('#allReservedSeats').html(`<p class="fw-light text-dark mt-2">Забронированные места: <b> @if(isset(Auth::user()->id)) @foreach(Auth::user()->seats as $seat) @if($seat->schedule->id === $schedule->id) ряд:{{$seat->row}} место:{{$seat->seat}}, <br> @endif @endforeach @endif </b></p>`);
     })
 </script>

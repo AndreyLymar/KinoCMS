@@ -76,7 +76,7 @@
         <div class="col-7">
             @if($film->status !== 'soon')
                 <div class="row w-50">
-                    <a class="btn btn-dark">Купить билет</a>
+                    <a class="btn btn-dark" href="{{route('user.schedules.index')}}">Купить билет</a>
                 </div>
             @endif
             <div class="row mt-5">
