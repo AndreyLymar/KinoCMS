@@ -113,6 +113,15 @@
 
                     </div>
                 </div>
+                <div class="row mt-5">
+                    <div class="col-md-5">
+                        <p class="fw-light">Отправлено:</p>
+                    </div>
+                    <div class="col-md-5" id="countSend">
+
+                    </div>
+                </div>
+
             </div>
             <div class="col-5">
                 <div class="row">
@@ -121,12 +130,16 @@
                 <div class="row" id="filesTemplate">
                     @include('admin.mailing_list.ajax.files')
                 </div>
+                <div class="row" id="sendingMessage">
+
+                </div>
             </div>
 
         </div>
         <div class="row m-5">
             <button class="btn btn-success w-25" id="sendMailing" type="button">Начать рассылку</button>
         </div>
+
     </form>
 
     <script>
@@ -137,7 +150,6 @@
                 $('input:checkbox:checked').each(function () {
                     checked.push($(this).val());
                 });
-                // console.log(checked);
             })
 
 
@@ -215,8 +227,6 @@
                      }
                     let template = $('input[name=template]:checked').val();
 
-                    console.log(users)
-                    console.log(template)
 
                 if (!$('input:checkbox:checked').val() && users !== 'allUser' ){
                         alert('Выберите хоть одного пользователя')
@@ -234,11 +244,36 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: (data) => {
-                            console.log(data);
+                            $('#sendingMessage').html('<p id="">' +  Math.round(100 -  (data/data * 100))  + '% </p>')
+                            sendingMessage(data);
+                            $('#sendMailing').prop("disabled",true);
                         }
                     })
                 }
             })
+
+            function sendingMessage(firstData){
+                $.ajax({
+                    url: '{{route('admin.mailing_lists.sending_message')}}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: (data) => {
+                        console.log(data);
+                        if (data == 0){
+                            $('#sendingMessage').html('<p id="">100% </p>')
+                            $('#countSend').html(`<p class="text-success">` + firstData + `</p>`)
+                            $('#sendMailing').prop("disabled",false);
+
+                        }else {
+                            $('#sendingMessage').html('<p id="">' + Math.round(100 -  (data/firstData * 100))  + '% </p>');
+                            sendingMessage(firstData)
+                        }
+
+                    }
+                })
+            }
 
         })
     </script>

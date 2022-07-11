@@ -10,20 +10,21 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
-class MailingListToUser implements ShouldQueue
+class MailingListUser implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $templateHtml;
-    protected $users;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($users, $templateHtml)
+    protected $email;
+    protected $templateHtml;
+
+    public function __construct($email, $templateHtml)
     {
-        $this->users = $users;
+        $this->email = $email;
         $this->templateHtml = $templateHtml;
     }
 
@@ -34,14 +35,12 @@ class MailingListToUser implements ShouldQueue
      */
     public function handle()
     {
-        foreach ($this->users as $user) {
-            Mail::html($this->templateHtml, function($message) use ($user) {
-                $message->from('kinoCms.local@gmail.com', 'Бункер "Свободу пісюнам');
-                $message->subject('Бункер "Свободу пісюнам"');
-                $message->to($user->email);
+        $email = $this->email;
+        Mail::html($this->templateHtml, function ($message) use ($email) {
+            $message->from('kinoCms.local@gmail.com', 'KinoCms');
+            $message->subject('KinoCms');
+            $message->to($email);
 
-            });
-        }
-
+        });
     }
 }

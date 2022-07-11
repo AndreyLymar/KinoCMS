@@ -114,6 +114,7 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware' => 'admin'],
         Route::post('/mailing_lists/save_img', 'MailingListController@save_img')->name('admin.mailing_lists.save_img');
         Route::get('/mailing_lists/del_img', 'MailingListController@del_img')->name('admin.mailing_lists.del_img');
         Route::post('/mailing_lists/send', 'MailingListController@send')->name('admin.mailing_lists.send');
+        Route::post('/mailing_lists/sending_message', 'MailingListController@sending_message')->name('admin.mailing_lists.sending_message');
     });
     Route::group(['namespace'=>'Page'], function(){
         Route::get('/pages', 'PageController@index')->name('admin.pages.index');
